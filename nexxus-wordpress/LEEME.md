@@ -1,0 +1,42 @@
+# Web corporativa NEXXUS · Tema para WordPress
+
+Tema a medida construido a partir del **Dossier Corporativo NEXXUS (Ed. 01 · noviembre 2026)** y del **Manual de Identidad v1.0**.
+
+- `nexxus-tema-wordpress.zip` — archivo listo para instalar en WordPress.
+- `nexxus/` — código fuente del tema.
+- `vista-previa/` — capturas de la web en ordenador y móvil.
+
+## Instalación (5 minutos)
+
+1. En el panel de WordPress: **Apariencia → Temas → Añadir nuevo → Subir tema**.
+2. Seleccione `nexxus-tema-wordpress.zip`, pulse **Instalar ahora** y después **Activar**.
+3. La web queda publicada en la portada del sitio, sin más pasos.
+
+## Qué puede cambiar sin tocar código
+
+En **Apariencia → Personalizar**:
+
+- **NEXXUS · Contacto**: nombre, cargo, teléfono, correo visible y correo que recibe el formulario.
+- **NEXXUS · Portada**: titular principal, texto de apoyo y descripción para buscadores.
+
+El resto de textos (partners, líneas de negocio, cifras) está en `nexxus/inc/content.php`.
+
+## Antes de publicar
+
+- **Textos legales.** Al activar el tema se crean dos páginas en **borrador**: «Aviso legal» y «Política de privacidad». Son un punto de partida con los datos del titular; revíselas con su asesor legal y publíquelas. En cuanto estén publicadas, el enlace aparece solo en el pie y en el formulario.
+- **Envío de correo.** El formulario usa el correo de WordPress. Envíe una consulta de prueba; si no llega, pida a su proveedor de alojamiento que configure el envío (SMTP).
+
+## Contenido de la página
+
+Portada · Quiénes somos · El modelo (5 fases) · Líneas de negocio (A, B, C) · Ecosistema (5 partners) · Por qué NEXXUS · Cómo trabajamos · Contacto.
+
+## Características
+
+- Identidad corporativa: azul NEXXUS `#061D38`, azul tecnológico `#00AEEF`, plata `#C0C6D4`, tipografía Montserrat, logotipo en trazados vectoriales.
+- Adaptada a móvil, tableta y ordenador.
+- Sin plugins, sin cookies y sin llamadas a servicios externos (la tipografía va dentro del tema).
+- Formulario de contacto propio, con protección básica contra envíos automáticos.
+
+---
+
+Josep M. González · Consultor Inmobiliario · +34 696 94 55 85
