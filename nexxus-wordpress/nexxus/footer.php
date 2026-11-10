@@ -31,7 +31,7 @@ $nexxus_email = nexxus_opt( 'contact_email' );
 		<div class="site-footer__legal">
 			<p class="site-footer__label">Titular de la marca</p>
 			<p>
-				NEXXUS es una marca de <?php echo esc_html( mb_strtoupper( $nexxus_owner['name'] ) ); ?><br>
+				NEXXUS es una marca de <?php echo esc_html( $nexxus_owner['name'] ); ?><br>
 				CIF <?php echo esc_html( $nexxus_owner['cif'] ); ?><br>
 				<?php echo esc_html( $nexxus_owner['address'] ); ?>
 			</p>
