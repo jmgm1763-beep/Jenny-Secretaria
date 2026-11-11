@@ -3,7 +3,7 @@ Theme Name: NEXXUS
 Theme URI: https://github.com/jmgm1763-beep/jenny-secretaria
 Author: Josep M. González · Consultor Inmobiliario
 Description: Web corporativa de NEXXUS · Real Estate y construcción industrializada. Página única construida a partir del Dossier Corporativo (Ed. 01) y del Manual de Identidad v1.0: azul noche, acentos en azul tecnológico, tipografía Montserrat y esquemas técnicos vectoriales. Incluye formulario de contacto propio, sin plugins ni llamadas a servicios externos.
-Version: 1.1.0
+Version: 1.2.0
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 7.4
@@ -791,6 +791,121 @@ details[open] summary::after { transform: translateY(2px) rotate(-135deg); }
 	.line__photo { margin: -24px -24px 24px; }
 	.projects { grid-template-columns: 1fr; }
 	.hero__photo::after { right: -8px; bottom: -8px; width: 64px; height: 64px; }
+}
+
+/* ---------- v1.2 · Aspecto más limpio: más aire, menos texto a la vista, cifras y pestañas ---------- */
+.section { padding-block: clamp(80px, 11vw, 168px); }
+h2 { font-size: clamp(2rem, 4.2vw, 3.375rem); letter-spacing: -.025em; line-height: 1.06; }
+.section__head { margin-bottom: clamp(48px, 6vw, 88px); }
+.split__body p:not(.lead) { max-width: 46ch; }
+
+.site-header { border-bottom-color: transparent; transition: border-color .3s, background-color .3s; }
+.site-header.is-scrolled { border-bottom-color: var(--rule-dark); }
+.site-nav li:not(.site-nav__cta) a.is-current { border-bottom-color: var(--cyan); }
+
+.hero__in { min-height: calc(100svh - var(--header-h)); padding-block: clamp(56px, 8vw, 112px); }
+.hero__in { grid-template-columns: minmax(0, 1.25fr) minmax(0, .75fr); }
+.hero h1 { font-size: clamp(2.5rem, 5.4vw, 4.5rem); line-height: 1.02; letter-spacing: -.03em; }
+.hero__lead { max-width: 30em; margin-top: 32px; }
+.hero__actions { margin-top: 48px; }
+
+.btn:not(.btn--sm)::after {
+	content: "";
+	width: 8px; height: 8px;
+	margin-left: 14px;
+	border-top: 2px solid currentColor;
+	border-right: 2px solid currentColor;
+	transform: rotate(45deg);
+	transition: transform .2s;
+}
+.btn:not(.btn--sm):hover::after { transform: translateX(4px) rotate(45deg); }
+
+/* Cifras */
+.stats { background: var(--deep); color: var(--white); border-top: 1px solid var(--rule-dark); }
+.stats__list { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.stat { padding: clamp(36px, 5vw, 64px) 28px clamp(36px, 5vw, 64px) 0; }
+.stat + .stat { padding-left: 28px; border-left: 1px solid var(--rule-dark); }
+.stat dt {
+	font-size: clamp(2rem, 3.7vw, 3.25rem);
+	font-weight: 800;
+	line-height: 1;
+	letter-spacing: -.035em;
+	font-variant-numeric: tabular-nums;
+	white-space: nowrap;
+}
+.stat dd { max-width: 22ch; margin-top: 14px; color: var(--silver); font-size: .875rem; line-height: 1.45; }
+
+/* Partners en pestañas */
+.ptabs { display: none; }
+.js .ptabs {
+	display: grid;
+	grid-template-columns: repeat(5, minmax(0, 1fr));
+	margin-top: clamp(48px, 6vw, 80px);
+	border-top: 1px solid var(--rule);
+}
+.ptab {
+	margin-top: -1px;
+	padding: 22px 16px 22px 0;
+	border: 0;
+	border-top: 3px solid transparent;
+	background: none;
+	color: var(--ink-soft);
+	font: inherit;
+	font-size: 1.0625rem;
+	font-weight: 800;
+	line-height: 1.2;
+	text-align: left;
+	cursor: pointer;
+	transition: color .2s, border-color .2s;
+}
+.ptab span {
+	display: block;
+	margin-bottom: 8px;
+	font-size: .625rem;
+	font-weight: 700;
+	letter-spacing: .14em;
+	line-height: 1.4;
+	text-transform: uppercase;
+}
+.ptab:hover { color: var(--navy); }
+.ptab[aria-selected="true"] { color: var(--navy); border-top-color: var(--cyan); }
+.js .partners { margin-top: 0; border-top: 0; }
+.js .partner { border-bottom: 0; padding-block: clamp(32px, 4vw, 56px) 0; }
+.js .partner[hidden] { display: none; }
+.js .partner .partner__kind { display: none; }
+.js .partner:not([hidden]) { animation: nx-in .45s ease both; }
+@keyframes nx-in { from { opacity: 0; transform: translateY(10px); } }
+
+.more { margin-top: 40px; }
+.more .table-wrap { margin-top: 24px; }
+
+/* Entrada escalonada de las rejillas */
+@media (prefers-reduced-motion: no-preference) {
+	.js .reveal:nth-child(2) { transition-delay: .08s; }
+	.js .reveal:nth-child(3) { transition-delay: .16s; }
+	.js .reveal:nth-child(4) { transition-delay: .24s; }
+	.js .reveal:nth-child(5) { transition-delay: .32s; }
+	.js .reveal:nth-child(6) { transition-delay: .40s; }
+	.art--alzado .art-accent { animation: nx-panel 1.4s .5s cubic-bezier(.2, .7, .2, 1) both; }
+	@keyframes nx-panel { from { opacity: 0; transform: translateY(-46px); } }
+}
+@media (prefers-reduced-motion: reduce) {
+	.js .partner:not([hidden]) { animation: none; }
+}
+
+@media (max-width: 960px) {
+	.hero__in { min-height: 0; grid-template-columns: 1fr; }
+	.stats__list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+	.stat:nth-child(3) { padding-left: 0; border-left: 0; }
+	.stat:nth-child(n+3) { border-top: 1px solid var(--rule-dark); }
+	.js .ptabs { display: flex; overflow-x: auto; scrollbar-width: none; margin-inline: calc(var(--gutter) * -1); padding-inline: var(--gutter); }
+	.js .ptabs::-webkit-scrollbar { display: none; }
+	.ptab { flex: none; min-width: 168px; padding-right: 24px; }
+}
+@media (max-width: 720px) {
+	.stat { padding: 28px 16px 28px 0; }
+	.stat + .stat { padding-left: 16px; }
+	.stat:nth-child(3) { padding-left: 0; }
 }
 
 /* ---------- Aparición suave (solo con JavaScript y sin preferencia de movimiento reducido) ---------- */

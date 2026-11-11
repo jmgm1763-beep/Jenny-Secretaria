@@ -293,3 +293,15 @@ function nexxus_privacy_draft() {
 		. '<!-- wp:heading --><h2 class="wp-block-heading">Derechos</h2><!-- /wp:heading -->'
 		. '<!-- wp:paragraph --><p>Puede ejercer sus derechos de acceso, rectificación, supresión, oposición, limitación y portabilidad escribiendo a ' . esc_html( nexxus_opt( 'contact_email' ) ) . '. También puede presentar una reclamación ante la Agencia Española de Protección de Datos (www.aepd.es).</p><!-- /wp:paragraph -->';
 }
+
+/**
+ * Cifras destacadas bajo la portada (datos del dossier).
+ */
+function nexxus_stats() {
+	return array(
+		array( 'n' => 5, 'pre' => '', 'suf' => '', 'text' => '5', 'label' => 'empresas especialistas bajo una sola dirección' ),
+		array( 'n' => 50000, 'pre' => '+', 'suf' => '', 'text' => '+50.000', 'label' => 'viviendas ejecutadas por REMAGIN en Reino Unido e Irlanda' ),
+		array( 'n' => 2783, 'pre' => '', 'suf' => '', 'text' => '2.783', 'label' => 'proyectos industriales ejecutados por CUALIMETAL' ),
+		array( 'n' => 50, 'pre' => '−', 'suf' => ' %', 'text' => '−50 %', 'label' => 'de plazo de ejecución, hasta' ),
+	);
+}

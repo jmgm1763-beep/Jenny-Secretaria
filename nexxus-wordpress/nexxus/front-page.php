@@ -33,14 +33,18 @@ $nexxus_owner = nexxus_owner();
 		<?php endif; ?>
 	</div>
 
+</section>
+
+<section class="stats" aria-label="NEXXUS en cifras">
 	<div class="wrap">
-		<ul class="hero__partners" aria-label="Empresas que coordina NEXXUS">
-			<li><span>Real Estate</span><strong>Trading Habitat</strong></li>
-			<li><span>Subvenciones y gestión técnica</span><strong>DS Consultores</strong></li>
-			<li><span>Sistema en altura</span><strong>REMAGIN by Etex</strong></li>
-			<li><span>Montaje Steel Frame</span><strong>DhHouse</strong></li>
-			<li><span>Sistemas industriales</span><strong>CUALIMETAL</strong></li>
-		</ul>
+		<dl class="stats__list">
+			<?php foreach ( nexxus_stats() as $nexxus_st ) : ?>
+				<div class="stat reveal">
+					<dt><span class="count" data-count="<?php echo esc_attr( $nexxus_st['n'] ); ?>" data-prefix="<?php echo esc_attr( $nexxus_st['pre'] ); ?>" data-suffix="<?php echo esc_attr( $nexxus_st['suf'] ); ?>"><?php echo esc_html( $nexxus_st['text'] ); ?></span></dt>
+					<dd><?php echo esc_html( $nexxus_st['label'] ); ?></dd>
+				</div>
+			<?php endforeach; ?>
+		</dl>
 	</div>
 </section>
 
@@ -143,9 +147,18 @@ $nexxus_owner = nexxus_owner();
 			</div>
 		</div>
 
+		<div class="ptabs" role="tablist" aria-label="Partners del ecosistema">
+			<?php foreach ( nexxus_partners() as $nexxus_pt ) : ?>
+				<button class="ptab" type="button" role="tab" id="tab-<?php echo esc_attr( $nexxus_pt['id'] ); ?>" aria-controls="<?php echo esc_attr( $nexxus_pt['id'] ); ?>" aria-selected="false">
+					<span><?php echo esc_html( $nexxus_pt['kind'] ); ?></span>
+					<?php echo esc_html( $nexxus_pt['name'] ); ?>
+				</button>
+			<?php endforeach; ?>
+		</div>
+
 		<div class="partners">
 			<?php foreach ( nexxus_partners() as $nexxus_pt ) : ?>
-				<article class="partner reveal" id="<?php echo esc_attr( $nexxus_pt['id'] ); ?>">
+				<article class="partner" id="<?php echo esc_attr( $nexxus_pt['id'] ); ?>" role="tabpanel" aria-labelledby="tab-<?php echo esc_attr( $nexxus_pt['id'] ); ?>">
 					<header class="partner__head">
 						<p class="partner__kind"><?php echo esc_html( $nexxus_pt['kind'] ); ?></p>
 						<h3><?php echo esc_html( $nexxus_pt['name'] ); ?></h3>
@@ -271,7 +284,9 @@ $nexxus_owner = nexxus_owner();
 			<?php endforeach; ?>
 		</ul>
 
-		<div class="table-wrap reveal">
+		<details class="more reveal">
+			<summary>Ver el vínculo de cada partner con NEXXUS</summary>
+		<div class="table-wrap">
 			<table class="agreements">
 				<caption class="screen-reader-text">Vínculo de cada partner con NEXXUS</caption>
 				<thead>
@@ -294,6 +309,7 @@ $nexxus_owner = nexxus_owner();
 				</tbody>
 			</table>
 		</div>
+		</details>
 	</div>
 </section>
 
