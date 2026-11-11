@@ -3,7 +3,7 @@ Theme Name: NEXXUS
 Theme URI: https://github.com/jmgm1763-beep/jenny-secretaria
 Author: Josep M. González · Consultor Inmobiliario
 Description: Web corporativa de NEXXUS · Real Estate y construcción industrializada. Página única construida a partir del Dossier Corporativo (Ed. 01) y del Manual de Identidad v1.0: azul noche, acentos en azul tecnológico, tipografía Montserrat y esquemas técnicos vectoriales. Incluye formulario de contacto propio, sin plugins ni llamadas a servicios externos.
-Version: 1.2.0
+Version: 1.3.0
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 7.4
@@ -906,6 +906,42 @@ h2 { font-size: clamp(2rem, 4.2vw, 3.375rem); letter-spacing: -.025em; line-heig
 	.stat { padding: 28px 16px 28px 0; }
 	.stat + .stat { padding-left: 16px; }
 	.stat:nth-child(3) { padding-left: 0; }
+}
+
+/* ---------- v1.3 · Reglas en enumeración, enlaces a especialistas y descarga de dossieres ---------- */
+.rules { gap: 12px; }
+.rule { display: flex; align-items: center; gap: 18px; padding: 24px 28px; }
+.rule .icon { flex: none; margin: 0; }
+.rule h3 { margin: 0; color: var(--white); font-size: 1.0625rem; }
+
+.line__actions { display: grid; gap: 20px; margin-top: auto; padding-top: 28px; }
+.line__download { justify-self: start; }
+.line__download span {
+	margin-left: 10px;
+	padding: 2px 6px;
+	background: var(--navy);
+	color: var(--white);
+	font-size: .625rem;
+	letter-spacing: .1em;
+}
+.line__download:hover span { background: var(--navy); }
+.line__webs { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 18px; margin: 0; font-size: .875rem; }
+.line__webs > span {
+	flex-basis: 100%;
+	color: var(--silver);
+	font-size: .625rem;
+	font-weight: 700;
+	letter-spacing: .14em;
+	text-transform: uppercase;
+}
+.line__webs a { padding: 6px 0; color: var(--white); font-weight: 700; text-decoration: none; border-bottom: 1px solid var(--cyan); }
+.line__webs a::after { content: " ↗"; color: var(--cyan); }
+.line__webs a:hover { color: var(--cyan); }
+
+@media (max-width: 720px) {
+	.rules { grid-template-columns: 1fr 1fr; }
+	.rule { flex-direction: column; align-items: flex-start; gap: 12px; padding: 20px; }
+	.rule h3 { font-size: .9375rem; }
 }
 
 /* ---------- Aparición suave (solo con JavaScript y sin preferencia de movimiento reducido) ---------- */

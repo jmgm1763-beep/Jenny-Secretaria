@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'NEXXUS_VERSION', '1.2.0' );
+define( 'NEXXUS_VERSION', '1.3.0' );
 
 require get_template_directory() . '/inc/content.php';
 require get_template_directory() . '/inc/illustrations.php';
@@ -195,6 +195,54 @@ function nexxus_customize( $wp_customize ) {
 		);
 	}
 
+	// Webs de los especialistas y dossieres descargables por línea de negocio.
+	$wp_customize->add_section(
+		'nexxus_lineas',
+		array(
+			'title'       => 'NEXXUS · Líneas: enlaces y dossieres',
+			'description' => 'Web de cada especialista y dossier en PDF de cada línea de negocio. Lo que quede vacío no se muestra.',
+			'priority'    => 33,
+		)
+	);
+	foreach ( nexxus_partners() as $partner ) {
+		$wp_customize->add_setting(
+			'nexxus_url_' . $partner['id'],
+			array(
+				'default'           => '',
+				'sanitize_callback' => 'esc_url_raw',
+			)
+		);
+		$wp_customize->add_control(
+			'nexxus_url_' . $partner['id'],
+			array(
+				'section'     => 'nexxus_lineas',
+				'label'       => 'Web de ' . $partner['name'],
+				'type'        => 'url',
+				'input_attrs' => array( 'placeholder' => 'https://' ),
+			)
+		);
+	}
+	foreach ( array( 'a', 'b', 'c' ) as $letter ) {
+		$wp_customize->add_setting(
+			'nexxus_dossier_' . $letter,
+			array(
+				'default'           => 0,
+				'sanitize_callback' => 'absint',
+			)
+		);
+		$wp_customize->add_control(
+			new WP_Customize_Media_Control(
+				$wp_customize,
+				'nexxus_dossier_' . $letter,
+				array(
+					'section'   => 'nexxus_lineas',
+					'label'     => 'Dossier de la línea ' . strtoupper( $letter ) . ' (PDF)',
+					'mime_type' => 'application/pdf',
+				)
+			)
+		);
+	}
+
 	$defaults = nexxus_defaults();
 	foreach ( $fields as $key => $f ) {
 		$wp_customize->add_setting(
@@ -321,4 +369,23 @@ function nexxus_img( $key, $size = 'nexxus-card', $attrs = array() ) {
 	}
 	$attrs = wp_parse_args( $attrs, array( 'loading' => 'lazy' ) );
 	return wp_get_attachment_image( $id, $size, false, $attrs );
+}
+
+/**
+ * Web de un especialista (o cadena vacía).
+ */
+function nexxus_partner_url( $partner_id ) {
+	return esc_url( get_theme_mod( 'nexxus_url_' . $partner_id, '' ) );
+}
+
+/**
+ * Dirección del dossier en PDF de una línea (o cadena vacía).
+ */
+function nexxus_dossier_url( $letter ) {
+	$id = absint( get_theme_mod( 'nexxus_dossier_' . strtolower( $letter ), 0 ) );
+	if ( ! $id ) {
+		return '';
+	}
+	$url = wp_get_attachment_url( $id );
+	return $url ? $url : '';
 }

@@ -234,9 +234,12 @@ function nexxus_agreements() {
  */
 function nexxus_rules() {
 	return array(
-		array( 'Registro único', 'Cada oportunidad se registra a nombre de NEXXUS antes de presentarla a un partner.' ),
-		array( 'No elusión', 'Ningún partner contrata directamente con un cliente registrado sin pasar por NEXXUS.' ),
-		array( 'Confidencialidad', 'La información de clientes y proyectos se protege conforme al RGPD.' ),
+		array( 'Registro único', 'registro' ),
+		array( 'No elusión', 'no-elusion' ),
+		array( 'Confidencialidad', 'confidencialidad' ),
+		array( 'Soporte técnico', 'soporte' ),
+		array( 'Formación de equipos', 'formacion' ),
+		array( 'Alcance internacional', 'internacional' ),
 	);
 }
 
@@ -303,5 +306,23 @@ function nexxus_stats() {
 		array( 'n' => 50000, 'pre' => '+', 'suf' => '', 'text' => '+50.000', 'label' => 'viviendas ejecutadas por REMAGIN en Reino Unido e Irlanda' ),
 		array( 'n' => 2783, 'pre' => '', 'suf' => '', 'text' => '2.783', 'label' => 'proyectos industriales ejecutados por CUALIMETAL' ),
 		array( 'n' => 50, 'pre' => '−', 'suf' => ' %', 'text' => '−50 %', 'label' => 'de plazo de ejecución, hasta' ),
+	);
+}
+
+/**
+ * Descripción breve de la marca.
+ */
+function nexxus_brand_line() {
+	return 'NEXXUS Advisor es una marca de consultoría inmobiliaria y de construcción industrializada.';
+}
+
+/**
+ * Especialistas vinculados a cada línea de negocio (identificadores de nexxus_partners).
+ */
+function nexxus_line_partners() {
+	return array(
+		'A' => array( 'cualimetal', 'trading-habitat' ),
+		'B' => array( 'remagin', 'dhhouse' ),
+		'C' => array( 'ds-consultores' ),
 	);
 }

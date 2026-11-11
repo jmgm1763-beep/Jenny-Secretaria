@@ -128,6 +128,31 @@ $nexxus_owner = nexxus_owner();
 							<li><?php echo esc_html( $nexxus_item ); ?></li>
 						<?php endforeach; ?>
 					</ul>
+					<?php
+					$nexxus_dossier = nexxus_dossier_url( $nexxus_l['letter'] );
+					$nexxus_lp      = nexxus_line_partners();
+					$nexxus_links   = array();
+					foreach ( nexxus_partners() as $nexxus_pt ) {
+						if ( in_array( $nexxus_pt['id'], $nexxus_lp[ $nexxus_l['letter'] ], true ) && nexxus_partner_url( $nexxus_pt['id'] ) ) {
+							$nexxus_links[ $nexxus_pt['name'] ] = nexxus_partner_url( $nexxus_pt['id'] );
+						}
+					}
+					?>
+					<?php if ( $nexxus_dossier || $nexxus_links ) : ?>
+						<div class="line__actions">
+							<?php if ( $nexxus_dossier ) : ?>
+								<a class="btn btn--sm line__download" href="<?php echo esc_url( $nexxus_dossier ); ?>" download>Descargar dossier <span>PDF</span></a>
+							<?php endif; ?>
+							<?php if ( $nexxus_links ) : ?>
+								<p class="line__webs">
+									<span>Web del especialista</span>
+									<?php foreach ( $nexxus_links as $nexxus_name => $nexxus_href ) : ?>
+										<a href="<?php echo esc_url( $nexxus_href ); ?>" target="_blank" rel="noopener"><?php echo esc_html( $nexxus_name ); ?><span class="screen-reader-text"> (se abre en una pestaña nueva)</span></a>
+									<?php endforeach; ?>
+								</p>
+							<?php endif; ?>
+						</div>
+					<?php endif; ?>
 				</article>
 			<?php endforeach; ?>
 		</div>
@@ -269,17 +294,15 @@ $nexxus_owner = nexxus_owner();
 				<h2 id="reglas-t">Reglas claras entre partners.</h2>
 			</div>
 			<div class="split__body reveal">
-				<p class="lead">NEXXUS es una marca titularidad de <?php echo esc_html( $nexxus_owner['name'] ); ?>. Cada partner se vincula mediante un acuerdo marco propio, sin participación en el capital y con las mismas reglas para todos.</p>
+				<p class="lead"><?php echo esc_html( nexxus_brand_line() ); ?> Cada partner se vincula mediante un acuerdo marco propio, sin participación en el capital y con las mismas reglas para todos.</p>
 			</div>
 		</div>
 
 		<ul class="rules">
-			<?php $nexxus_rule_icons = array( 'registro', 'no-elusion', 'confidencialidad' ); ?>
-			<?php foreach ( nexxus_rules() as $nexxus_i => $nexxus_r ) : ?>
+			<?php foreach ( nexxus_rules() as $nexxus_r ) : ?>
 				<li class="rule reveal">
-					<?php echo nexxus_icon( $nexxus_rule_icons[ $nexxus_i ] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+					<?php echo nexxus_icon( $nexxus_r[1] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 					<h3><?php echo esc_html( $nexxus_r[0] ); ?></h3>
-					<p><?php echo esc_html( $nexxus_r[1] ); ?></p>
 				</li>
 			<?php endforeach; ?>
 		</ul>
@@ -374,13 +397,13 @@ $nexxus_owner = nexxus_owner();
 			<div class="field field--check">
 				<input id="cf-privacidad" name="privacidad" type="checkbox" value="1" required>
 				<label for="cf-privacidad">
-					Acepto que <?php echo esc_html( $nexxus_owner['name'] ); ?> trate mis datos para responder a esta consulta.
+					Acepto que NEXXUS Advisor trate mis datos para responder a esta consulta.
 					<?php if ( nexxus_privacy_url() ) : ?>
 						<a href="<?php echo esc_url( nexxus_privacy_url() ); ?>">Política de privacidad</a>.
 					<?php endif; ?>
 				</label>
 			</div>
-			<p class="form-legal">Responsable: <?php echo esc_html( $nexxus_owner['name'] ); ?>. Finalidad: atender su consulta. Puede ejercer sus derechos de acceso, rectificación y supresión escribiendo a <?php echo esc_html( antispambot( $nexxus_email ) ); ?>.</p>
+			<p class="form-legal">Responsable: NEXXUS Advisor. Finalidad: atender su consulta. Puede ejercer sus derechos de acceso, rectificación y supresión escribiendo a <?php echo esc_html( antispambot( $nexxus_email ) ); ?>.</p>
 			<button class="btn" type="submit">Enviar consulta</button>
 		</form>
 	</div>

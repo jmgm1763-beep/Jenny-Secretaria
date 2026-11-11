@@ -29,6 +29,9 @@ function nexxus_icon( $name ) {
 		'registro'         => '<rect x="7" y="6" width="18" height="22"/><path d="M12 4h8v4h-8z"/><path class="ic-a" d="M11 17l3 3 6-6"/>',
 		'no-elusion'       => '<rect x="3" y="11" width="15" height="10" rx="5"/><rect class="ic-a" x="14" y="11" width="15" height="10" rx="5"/>',
 		'confidencialidad' => '<rect x="7" y="14" width="18" height="13"/><path d="M11 14v-4a5 5 0 0 1 10 0v4"/><path class="ic-a" d="M16 19v4"/>',
+		'soporte'          => '<path d="M7 18v-3a9 9 0 0 1 18 0v3"/><rect x="5" y="17" width="5" height="8"/><rect x="22" y="17" width="5" height="8"/><path class="ic-a" d="M24.500 25v3H18"/>',
+		'formacion'        => '<path d="M3 12l13-6 13 6-13 6z"/><path d="M9 15v6c0 2 3.200 4 7 4s7-2 7-4v-6"/><path class="ic-a" d="M29 12v8"/>',
+		'internacional'    => '<circle cx="16" cy="16" r="11"/><ellipse cx="16" cy="16" rx="5" ry="11"/><path class="ic-a" d="M5 16h22"/>',
 	);
 
 	if ( ! isset( $icons[ $name ] ) ) {

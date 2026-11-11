@@ -28,6 +28,15 @@ El resto de textos (partners, líneas de negocio, cifras) está en `nexxus/inc/c
 - **Símbolos:** van incluidos en el tema; no hay que subir nada.
 - Fotografías recomendadas: horizontales, 1600 px de ancho como mínimo, en JPG. Use solo imágenes con permiso de su autor o del partner.
 
+## Enlaces a especialistas y dossieres por línea (desde la versión 1.3)
+
+Apariencia → Personalizar → **NEXXUS · Líneas: enlaces y dossieres**:
+
+- **Web de cada especialista:** escriba la dirección completa (https://…). Aparece como enlace en la tarjeta de su línea de negocio.
+- **Dossier de cada línea (PDF):** suba el PDF. Aparece el botón «Descargar dossier» en la tarjeta de esa línea.
+
+Lo que quede vacío no se muestra.
+
 ## Antes de publicar
 
 - **Textos legales.** Al activar el tema se crean dos páginas en **borrador**: «Aviso legal» y «Política de privacidad». Son un punto de partida con los datos del titular; revíselas con su asesor legal y publíquelas. En cuanto estén publicadas, el enlace aparece solo en el pie y en el formulario.
