@@ -13,6 +13,9 @@ $nexxus_nav   = array(
 	'ecosistema'    => 'Ecosistema',
 	'ventajas'      => 'Por qué NEXXUS',
 );
+if ( nexxus_get_projects( 1 ) ) {
+	$nexxus_nav = array_slice( $nexxus_nav, 0, 4, true ) + array( 'proyectos' => 'Proyectos' ) + array_slice( $nexxus_nav, 4, null, true );
+}
 ?>
 <!doctype html>
 <html <?php language_attributes(); ?>>

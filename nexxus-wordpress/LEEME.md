@@ -21,6 +21,13 @@ En **Apariencia → Personalizar**:
 
 El resto de textos (partners, líneas de negocio, cifras) está en `nexxus/inc/content.php`.
 
+## Imágenes y proyectos (desde la versión 1.1)
+
+- **Fotos de los apartados:** Apariencia → Personalizar → **NEXXUS · Imágenes**. Hay seis huecos (portada, quiénes somos, líneas A, B y C, y fondo de contacto). Si un hueco queda vacío, se muestra el esquema técnico original.
+- **Obras de los partners:** menú **Proyectos → Añadir proyecto**. Título, fotografía del proyecto, partner y un extracto breve con la ubicación. Al publicar el primero, aparece la sección «Proyectos» en la portada y en el menú.
+- **Símbolos:** van incluidos en el tema; no hay que subir nada.
+- Fotografías recomendadas: horizontales, 1600 px de ancho como mínimo, en JPG. Use solo imágenes con permiso de su autor o del partner.
+
 ## Antes de publicar
 
 - **Textos legales.** Al activar el tema se crean dos páginas en **borrador**: «Aviso legal» y «Política de privacidad». Son un punto de partida con los datos del titular; revíselas con su asesor legal y publíquelas. En cuanto estén publicadas, el enlace aparece solo en el pie y en el formulario.

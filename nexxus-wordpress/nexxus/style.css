@@ -3,9 +3,9 @@ Theme Name: NEXXUS
 Theme URI: https://github.com/jmgm1763-beep/jenny-secretaria
 Author: Josep M. González · Consultor Inmobiliario
 Description: Web corporativa de NEXXUS · Real Estate y construcción industrializada. Página única construida a partir del Dossier Corporativo (Ed. 01) y del Manual de Identidad v1.0: azul noche, acentos en azul tecnológico, tipografía Montserrat y esquemas técnicos vectoriales. Incluye formulario de contacto propio, sin plugins ni llamadas a servicios externos.
-Version: 1.0.1
+Version: 1.1.0
 Requires at least: 6.0
-Tested up to: 6.5
+Tested up to: 7.1
 Requires PHP: 7.4
 License: GNU General Public License v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -327,8 +327,9 @@ a:hover { text-decoration-color: var(--cyan); }
 	padding-left: 32px;
 }
 .pillar:first-child { border-left: 0; padding-left: 0; }
-.pillar__name {
+.pillar .pillar__name {
 	margin-bottom: 14px;
+	color: var(--navy);
 	font-size: clamp(1.75rem, 3vw, 2.25rem);
 	font-weight: 800;
 	line-height: 1;
@@ -723,6 +724,74 @@ details[open] summary::after { transform: translateY(2px) rotate(-135deg); }
 .entry__content ol { list-style: decimal; }
 .entry__content a { color: var(--navy); font-weight: 600; text-decoration-color: var(--cyan); text-decoration-thickness: 2px; }
 .entry__content img { height: auto; }
+
+/* ---------- v1.1 · Símbolos, fotografías y proyectos ---------- */
+.icon { display: block; width: 40px; height: 40px; color: var(--navy); }
+.icon .ic-a { stroke: var(--cyan); }
+.pillar .icon { margin-bottom: 20px; }
+.advantage .icon { margin-bottom: 18px; }
+.advantage__num { margin-bottom: 14px; }
+.advantage__head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+.rule .icon { margin-bottom: 18px; color: var(--white); }
+
+.photo { margin: 0; overflow: hidden; background: var(--deep); }
+.photo img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+.hero__photo { position: relative; aspect-ratio: 4 / 5; max-height: 560px; margin-left: auto; width: 100%; max-width: 480px; }
+.hero__photo::after {
+	content: "";
+	position: absolute;
+	right: -14px; bottom: -14px;
+	width: 96px; height: 96px;
+	border-right: 3px solid var(--cyan);
+	border-bottom: 3px solid var(--cyan);
+	pointer-events: none;
+}
+.hero__photo { overflow: visible; }
+.hero__photo img { position: absolute; inset: 0; }
+
+.band { margin-top: clamp(40px, 5vw, 64px); aspect-ratio: 21 / 9; }
+
+.line__photo { margin: -32px -32px 28px; aspect-ratio: 16 / 9; }
+
+.projects { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px 24px; }
+.project { display: flex; flex-direction: column; }
+.project__img { position: relative; aspect-ratio: 4 / 3; margin-bottom: 18px; }
+.project__img--empty { display: grid; place-items: center; background: var(--navy); }
+.project__img--empty .isotipo { width: 56px; opacity: .5; }
+.project__partner {
+	margin-bottom: 8px;
+	color: var(--ink-soft);
+	font-size: .6875rem;
+	font-weight: 700;
+	letter-spacing: .14em;
+	text-transform: uppercase;
+}
+.project__partner::before {
+	content: "";
+	display: inline-block;
+	width: 18px; height: 3px;
+	margin-right: 10px;
+	vertical-align: middle;
+	background: var(--cyan);
+}
+.project h3 { font-size: 1.25rem; font-weight: 800; line-height: 1.2; letter-spacing: -.01em; }
+.project p:last-child { margin-top: 8px; color: var(--ink-soft); font-size: .9375rem; }
+
+.contact--photo { position: relative; isolation: isolate; }
+.contact__bg { position: absolute; inset: 0; z-index: -1; margin: 0; }
+.contact__bg img { width: 100%; height: 100%; object-fit: cover; opacity: .16; }
+
+@media (max-width: 960px) {
+	.hero__photo { margin-inline: auto; aspect-ratio: 4 / 3; max-width: 560px; }
+	.projects { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 720px) {
+	.band { aspect-ratio: 16 / 9; }
+	.line__photo { margin: -24px -24px 24px; }
+	.projects { grid-template-columns: 1fr; }
+	.hero__photo::after { right: -8px; bottom: -8px; width: 64px; height: 64px; }
+}
 
 /* ---------- Aparición suave (solo con JavaScript y sin preferencia de movimiento reducido) ---------- */
 @media (prefers-reduced-motion: no-preference) {

@@ -9,10 +9,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'NEXXUS_VERSION', '1.0.1' );
+define( 'NEXXUS_VERSION', '1.1.0' );
 
 require get_template_directory() . '/inc/content.php';
 require get_template_directory() . '/inc/illustrations.php';
+require get_template_directory() . '/inc/icons.php';
+require get_template_directory() . '/inc/projects.php';
 require get_template_directory() . '/inc/contact-form.php';
 
 /**
@@ -21,6 +23,8 @@ require get_template_directory() . '/inc/contact-form.php';
 function nexxus_setup() {
 	add_theme_support( 'title-tag' );
 	add_theme_support( 'post-thumbnails' );
+	add_image_size( 'nexxus-card', 960, 720, true );
+	add_image_size( 'nexxus-wide', 1920, 820, true );
 	add_theme_support( 'html5', array( 'search-form', 'gallery', 'caption', 'style', 'script' ) );
 	add_theme_support( 'responsive-embeds' );
 	add_theme_support( 'align-wide' );
@@ -161,6 +165,36 @@ function nexxus_customize( $wp_customize ) {
 		'meta_description' => array( 'nexxus_portada', 'Descripción para buscadores', 'textarea', 'sanitize_textarea_field' ),
 	);
 
+	// Fotografías opcionales: si se dejan vacías, se muestran los esquemas técnicos.
+	$wp_customize->add_section(
+		'nexxus_imagenes',
+		array(
+			'title'       => 'NEXXUS · Imágenes',
+			'description' => 'Fotografías opcionales. Si deja un campo vacío, se muestra el esquema técnico original. Use fotos horizontales de 1600 px de ancho como mínimo. Las fotos de obras de los partners se añaden en el menú «Proyectos».',
+			'priority'    => 32,
+		)
+	);
+	foreach ( nexxus_image_slots() as $key => $label ) {
+		$wp_customize->add_setting(
+			'nexxus_' . $key,
+			array(
+				'default'           => 0,
+				'sanitize_callback' => 'absint',
+			)
+		);
+		$wp_customize->add_control(
+			new WP_Customize_Media_Control(
+				$wp_customize,
+				'nexxus_' . $key,
+				array(
+					'section'   => 'nexxus_imagenes',
+					'label'     => $label,
+					'mime_type' => 'image',
+				)
+			)
+		);
+	}
+
 	$defaults = nexxus_defaults();
 	foreach ( $fields as $key => $f ) {
 		$wp_customize->add_setting(
@@ -261,4 +295,30 @@ function nexxus_privacy_url() {
  */
 function nexxus_anchor( $id ) {
 	return ( is_front_page() ? '' : home_url( '/' ) ) . '#' . $id;
+}
+
+/**
+ * Huecos de fotografía editables en Apariencia > Personalizar > NEXXUS · Imágenes.
+ */
+function nexxus_image_slots() {
+	return array(
+		'img_hero'    => 'Portada (sustituye al alzado técnico)',
+		'img_quienes' => 'Quiénes somos (franja panorámica)',
+		'img_linea_a' => 'Línea A · Activos terciarios e industriales',
+		'img_linea_b' => 'Línea B · Edificación residencial en altura',
+		'img_linea_c' => 'Línea C · Vivienda pública y municipios',
+		'img_contact' => 'Contacto (fondo de la sección)',
+	);
+}
+
+/**
+ * Devuelve la etiqueta de imagen de un hueco, o cadena vacía si no hay foto elegida.
+ */
+function nexxus_img( $key, $size = 'nexxus-card', $attrs = array() ) {
+	$id = absint( get_theme_mod( 'nexxus_' . $key, 0 ) );
+	if ( ! $id ) {
+		return '';
+	}
+	$attrs = wp_parse_args( $attrs, array( 'loading' => 'lazy' ) );
+	return wp_get_attachment_image( $id, $size, false, $attrs );
 }

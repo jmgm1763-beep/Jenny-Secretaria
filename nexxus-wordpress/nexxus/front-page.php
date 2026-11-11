@@ -23,9 +23,14 @@ $nexxus_owner = nexxus_owner();
 				<a class="btn btn--ghost" href="#modelo">Cómo trabajamos</a>
 			</div>
 		</div>
-		<div class="hero__art">
-			<?php echo nexxus_art_alzado(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-		</div>
+		<?php $nexxus_hero_img = nexxus_img( 'img_hero', 'large', array( 'loading' => 'eager', 'fetchpriority' => 'high' ) ); ?>
+		<?php if ( $nexxus_hero_img ) : ?>
+			<figure class="photo hero__photo"><?php echo $nexxus_hero_img; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></figure>
+		<?php else : ?>
+			<div class="hero__art">
+				<?php echo nexxus_art_alzado(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+			</div>
+		<?php endif; ?>
 	</div>
 
 	<div class="wrap">
@@ -52,9 +57,16 @@ $nexxus_owner = nexxus_owner();
 			</div>
 		</div>
 
+		<?php $nexxus_band = nexxus_img( 'img_quienes', 'nexxus-wide' ); ?>
+		<?php if ( $nexxus_band ) : ?>
+			<figure class="photo band reveal"><?php echo $nexxus_band; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></figure>
+		<?php endif; ?>
+
 		<ul class="pillars">
-			<?php foreach ( nexxus_pillars() as $nexxus_p ) : ?>
+			<?php $nexxus_pillar_icons = array( 'activo', 'capital', 'sistema' ); ?>
+			<?php foreach ( nexxus_pillars() as $nexxus_i => $nexxus_p ) : ?>
 				<li class="pillar reveal">
+					<?php echo nexxus_icon( $nexxus_pillar_icons[ $nexxus_i ] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 					<p class="pillar__name"><?php echo esc_html( $nexxus_p[0] ); ?></p>
 					<h3><?php echo esc_html( $nexxus_p[1] ); ?></h3>
 					<p><?php echo esc_html( $nexxus_p[2] ); ?></p>
@@ -99,7 +111,12 @@ $nexxus_owner = nexxus_owner();
 		<div class="lines">
 			<?php foreach ( nexxus_lines() as $nexxus_l ) : ?>
 				<article class="line reveal<?php echo 'A' === $nexxus_l['letter'] ? ' line--main' : ''; ?>">
-					<div class="line__art"><?php echo nexxus_art_line( $nexxus_l['art'] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></div>
+					<?php $nexxus_line_img = nexxus_img( 'img_linea_' . strtolower( $nexxus_l['letter'] ) ); ?>
+					<?php if ( $nexxus_line_img ) : ?>
+						<figure class="photo line__photo"><?php echo $nexxus_line_img; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></figure>
+					<?php else : ?>
+						<div class="line__art"><?php echo nexxus_art_line( $nexxus_l['art'] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></div>
+					<?php endif; ?>
 					<p class="line__tag"><?php echo esc_html( $nexxus_l['tag'] ); ?></p>
 					<h3><span class="line__letter">Línea <?php echo esc_html( $nexxus_l['letter'] ); ?></span><?php echo esc_html( $nexxus_l['title'] ); ?></h3>
 					<ul class="checks">
@@ -168,17 +185,52 @@ $nexxus_owner = nexxus_owner();
 	</div>
 </section>
 
-<section class="section section--tint" id="ventajas" aria-labelledby="ventajas-t">
+<?php $nexxus_projects = nexxus_get_projects(); ?>
+<?php if ( $nexxus_projects ) : ?>
+<section class="section section--tint" id="proyectos" aria-labelledby="proyectos-t">
+	<div class="wrap">
+		<div class="section__head reveal">
+			<p class="eyebrow">Proyectos</p>
+			<h2 id="proyectos-t">Obras ejecutadas por nuestros partners.</h2>
+		</div>
+
+		<div class="projects">
+			<?php foreach ( $nexxus_projects as $nexxus_pr ) : ?>
+				<article class="project reveal">
+					<?php if ( has_post_thumbnail( $nexxus_pr ) ) : ?>
+						<figure class="photo project__img"><?php echo get_the_post_thumbnail( $nexxus_pr, 'nexxus-card', array( 'loading' => 'lazy' ) ); ?></figure>
+					<?php else : ?>
+						<div class="project__img project__img--empty"><?php echo nexxus_isotipo(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></div>
+					<?php endif; ?>
+					<?php if ( nexxus_project_partner( $nexxus_pr->ID ) ) : ?>
+						<p class="project__partner"><?php echo esc_html( nexxus_project_partner( $nexxus_pr->ID ) ); ?></p>
+					<?php endif; ?>
+					<h3><?php echo esc_html( get_the_title( $nexxus_pr ) ); ?></h3>
+					<?php if ( has_excerpt( $nexxus_pr ) ) : ?>
+						<p><?php echo esc_html( get_the_excerpt( $nexxus_pr ) ); ?></p>
+					<?php endif; ?>
+				</article>
+			<?php endforeach; ?>
+		</div>
+	</div>
+</section>
+<?php endif; ?>
+
+<section class="section<?php echo $nexxus_projects ? '' : ' section--tint'; ?>" id="ventajas" aria-labelledby="ventajas-t">
 	<div class="wrap">
 		<div class="section__head reveal">
 			<p class="eyebrow">Por qué NEXXUS</p>
 			<h2 id="ventajas-t">Lo que gana el cliente.</h2>
 		</div>
 
+		<?php $nexxus_adv_icons = array( 'interlocutor', 'certificados', 'financiacion', 'plazo', 'nacional', 'salida' ); ?>
 		<ul class="advantages">
 			<?php foreach ( nexxus_advantages() as $nexxus_i => $nexxus_a ) : ?>
 				<li class="advantage reveal">
-					<span class="advantage__num" aria-hidden="true"><?php echo esc_html( sprintf( '%02d', $nexxus_i + 1 ) ); ?></span>
+					<div class="advantage__head">
+						<span class="advantage__num" aria-hidden="true"><?php echo esc_html( sprintf( '%02d', $nexxus_i + 1 ) ); ?></span>
+						<?php echo nexxus_icon( $nexxus_adv_icons[ $nexxus_i ] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+					</div>
 					<h3><?php echo esc_html( $nexxus_a[0] ); ?></h3>
 					<p><?php echo esc_html( $nexxus_a[1] ); ?></p>
 				</li>
@@ -209,8 +261,10 @@ $nexxus_owner = nexxus_owner();
 		</div>
 
 		<ul class="rules">
-			<?php foreach ( nexxus_rules() as $nexxus_r ) : ?>
+			<?php $nexxus_rule_icons = array( 'registro', 'no-elusion', 'confidencialidad' ); ?>
+			<?php foreach ( nexxus_rules() as $nexxus_i => $nexxus_r ) : ?>
 				<li class="rule reveal">
+					<?php echo nexxus_icon( $nexxus_rule_icons[ $nexxus_i ] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 					<h3><?php echo esc_html( $nexxus_r[0] ); ?></h3>
 					<p><?php echo esc_html( $nexxus_r[1] ); ?></p>
 				</li>
@@ -243,7 +297,11 @@ $nexxus_owner = nexxus_owner();
 	</div>
 </section>
 
-<section class="section section--dark contact" id="contacto" aria-labelledby="contacto-t">
+<?php $nexxus_contact_bg = nexxus_img( 'img_contact', 'nexxus-wide' ); ?>
+<section class="section section--dark contact<?php echo $nexxus_contact_bg ? ' contact--photo' : ''; ?>" id="contacto" aria-labelledby="contacto-t">
+	<?php if ( $nexxus_contact_bg ) : ?>
+		<figure class="contact__bg" aria-hidden="true"><?php echo $nexxus_contact_bg; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></figure>
+	<?php endif; ?>
 	<div class="wrap contact__in">
 		<div class="contact__info">
 			<p class="eyebrow">Contacto</p>
