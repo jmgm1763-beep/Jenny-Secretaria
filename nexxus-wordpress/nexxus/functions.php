@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'NEXXUS_VERSION', '1.3.1' );
+define( 'NEXXUS_VERSION', '1.4.0' );
 
 require get_template_directory() . '/inc/content.php';
 require get_template_directory() . '/inc/illustrations.php';

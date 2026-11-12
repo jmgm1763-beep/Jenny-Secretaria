@@ -32,6 +32,7 @@ if ( nexxus_get_projects( 1 ) ) {
 	<div class="wrap site-header__in">
 		<a class="site-logo" href="<?php echo esc_url( home_url( '/' ) ); ?>" aria-label="NEXXUS Advisor · Inicio">
 			<img src="<?php echo esc_url( get_template_directory_uri() . '/assets/img/logo-negativo.svg' ); ?>" alt="NEXXUS Advisor" width="701" height="148">
+			<span class="logo-tag" aria-hidden="true">Advisor</span>
 		</a>
 
 		<button class="nav-toggle" type="button" aria-expanded="false" aria-controls="menu-principal">

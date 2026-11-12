@@ -14,7 +14,7 @@ $nexxus_email = nexxus_opt( 'contact_email' );
 <footer class="site-footer">
 	<div class="wrap site-footer__in">
 		<div class="site-footer__brand">
-			<img src="<?php echo esc_url( get_template_directory_uri() . '/assets/img/logo-negativo.svg' ); ?>" alt="NEXXUS Advisor" width="701" height="148" loading="lazy">
+			<p class="footer-logo"><img src="<?php echo esc_url( get_template_directory_uri() . '/assets/img/logo-negativo.svg' ); ?>" alt="NEXXUS Advisor" width="701" height="148" loading="lazy"><span class="logo-tag" aria-hidden="true">Advisor</span></p>
 			<p>Real Estate y construcción industrializada.<br>Un solo interlocutor desde el suelo hasta la entrega.</p>
 		</div>
 
