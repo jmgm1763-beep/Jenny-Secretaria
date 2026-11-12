@@ -71,7 +71,7 @@ function nexxus_handle_contact() {
 	$types      = nexxus_project_types();
 	$type_label = isset( $types[ $type ] ) ? $types[ $type ] : 'Sin especificar';
 
-	$body  = "Nueva consulta desde la web de NEXXUS\n\n";
+	$body  = "Nueva consulta desde la web de NEXXUS Advisor\n\n";
 	$body .= 'Nombre: ' . $name . "\n";
 	$body .= 'Empresa: ' . ( $company ? $company : '—' ) . "\n";
 	$body .= 'Correo: ' . $email . "\n";
@@ -84,7 +84,7 @@ function nexxus_handle_contact() {
 		'Reply-To: ' . $name . ' <' . $email . '>',
 	);
 
-	$sent = wp_mail( nexxus_form_recipient(), 'NEXXUS · Consulta web de ' . $name, $body, $headers );
+	$sent = wp_mail( nexxus_form_recipient(), 'NEXXUS Advisor · Consulta web de ' . $name, $body, $headers );
 
 	set_transient( $key, $count + 1, HOUR_IN_SECONDS );
 	nexxus_form_redirect( $sent ? 'ok' : 'fallo' );

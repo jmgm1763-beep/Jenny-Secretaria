@@ -11,7 +11,7 @@ $nexxus_nav   = array(
 	'modelo'        => 'El modelo',
 	'lineas'        => 'Líneas de negocio',
 	'ecosistema'    => 'Ecosistema',
-	'ventajas'      => 'Por qué NEXXUS',
+	'ventajas'      => 'Por qué NEXXUS Advisor',
 );
 if ( nexxus_get_projects( 1 ) ) {
 	$nexxus_nav = array_slice( $nexxus_nav, 0, 4, true ) + array( 'proyectos' => 'Proyectos' ) + array_slice( $nexxus_nav, 4, null, true );
@@ -30,8 +30,8 @@ if ( nexxus_get_projects( 1 ) ) {
 
 <header class="site-header" id="cabecera">
 	<div class="wrap site-header__in">
-		<a class="site-logo" href="<?php echo esc_url( home_url( '/' ) ); ?>" aria-label="NEXXUS · Inicio">
-			<img src="<?php echo esc_url( get_template_directory_uri() . '/assets/img/logo-negativo.svg' ); ?>" alt="NEXXUS" width="701" height="148">
+		<a class="site-logo" href="<?php echo esc_url( home_url( '/' ) ); ?>" aria-label="NEXXUS Advisor · Inicio">
+			<img src="<?php echo esc_url( get_template_directory_uri() . '/assets/img/logo-negativo.svg' ); ?>" alt="NEXXUS Advisor" width="701" height="148">
 		</a>
 
 		<button class="nav-toggle" type="button" aria-expanded="false" aria-controls="menu-principal">

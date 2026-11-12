@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'NEXXUS_VERSION', '1.3.0' );
+define( 'NEXXUS_VERSION', '1.3.1' );
 
 require get_template_directory() . '/inc/content.php';
 require get_template_directory() . '/inc/illustrations.php';
@@ -93,7 +93,7 @@ function nexxus_has_seo_plugin() {
  */
 function nexxus_document_title( $parts ) {
 	if ( is_front_page() && ! nexxus_has_seo_plugin() ) {
-		$parts['title']   = 'NEXXUS';
+		$parts['title']   = 'NEXXUS Advisor';
 		$parts['tagline'] = 'Real Estate y construcción industrializada';
 		unset( $parts['site'] );
 	}
@@ -113,7 +113,7 @@ function nexxus_defaults() {
 		'form_recipient'   => '',
 		'hero_title'       => 'Un solo interlocutor desde el suelo hasta la entrega.',
 		'hero_text'        => 'Unimos activo, financiación, sistema constructivo, montaje y comercialización bajo una misma dirección.',
-		'meta_description' => 'NEXXUS coordina a cinco empresas especialistas en activos terciarios e industriales y en construcción industrializada. Un único responsable desde el suelo hasta la entrega.',
+		'meta_description' => 'NEXXUS Advisor coordina a cinco empresas especialistas en activos terciarios e industriales y en construcción industrializada. Un único responsable desde el suelo hasta la entrega.',
 	);
 }
 

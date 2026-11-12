@@ -27,7 +27,7 @@ function nexxus_pillars() {
 function nexxus_phases() {
 	return array(
 		array( 'Origen del activo', 'Búsqueda y captación de suelo, naves y activos terciarios. Valoración y análisis urbanístico.', array( 'Trading Habitat' ) ),
-		array( 'Viabilidad y financiación', 'Estudio económico, programas de ayudas, convenios municipales y tramitación.', array( 'DS Consultores', 'NEXXUS' ) ),
+		array( 'Viabilidad y financiación', 'Estudio económico, programas de ayudas, convenios municipales y tramitación.', array( 'DS Consultores', 'NEXXUS Advisor' ) ),
 		array( 'Ingeniería y sistema', 'Elección del sistema industrializado según el uso: residencial en altura o industrial.', array( 'REMAGIN', 'CUALIMETAL' ) ),
 		array( 'Fabricación y montaje', 'Producción en taller y montaje en obra con equipos formados y acreditados.', array( 'DhHouse', 'CUALIMETAL' ) ),
 		array( 'Comercialización y salida', 'Venta o alquiler del producto terminado y gestión de la salida del inversor.', array( 'Trading Habitat' ) ),
@@ -149,7 +149,7 @@ function nexxus_partners() {
 			'meta'     => 'DomusHouse Ibérica · Girona · Amposta',
 			'lines'    => 'Líneas B y C',
 			'intro'    => 'Especialistas en montaje de estructuras de acero galvanizado. Ofrecen un servicio completo: cálculo, fabricación y premontaje en taller, y montaje en obra con equipos propios formados en el sistema.',
-			'role'     => 'Garantiza la ejecución. Monta el sistema en altura y forma y acredita, junto a REMAGIN, a los equipos y constructoras locales que trabajarán con NEXXUS.',
+			'role'     => 'Garantiza la ejecución. Monta el sistema en altura y forma y acredita, junto a REMAGIN, a los equipos y constructoras locales que trabajarán con NEXXUS Advisor.',
 			'figures'  => array(
 				array( '3', 'servicios: cálculo, taller y obra' ),
 				array( '3', 'líneas: dhhouse, dhkube y dhlogic' ),
@@ -274,7 +274,7 @@ function nexxus_legal_notice_draft() {
 	$o = nexxus_owner();
 	return '<!-- wp:paragraph --><p><strong>BORRADOR PENDIENTE DE REVISIÓN.</strong> Revise este texto con su asesor legal antes de publicarlo.</p><!-- /wp:paragraph -->'
 		. '<!-- wp:heading --><h2 class="wp-block-heading">Titular del sitio web</h2><!-- /wp:heading -->'
-		. '<!-- wp:paragraph --><p>NEXXUS es una marca de ' . esc_html( $o['name'] ) . ', con CIF ' . esc_html( $o['cif'] ) . ' y domicilio en ' . esc_html( $o['address'] ) . '.</p><!-- /wp:paragraph -->'
+		. '<!-- wp:paragraph --><p>NEXXUS Advisor es una marca de ' . esc_html( $o['name'] ) . ', con CIF ' . esc_html( $o['cif'] ) . ' y domicilio en ' . esc_html( $o['address'] ) . '.</p><!-- /wp:paragraph -->'
 		. '<!-- wp:paragraph --><p>Contacto: ' . esc_html( nexxus_opt( 'contact_phone' ) ) . ' · ' . esc_html( nexxus_opt( 'contact_email' ) ) . '</p><!-- /wp:paragraph -->'
 		. '<!-- wp:paragraph --><p>[Añadir datos de inscripción en el Registro Mercantil.]</p><!-- /wp:paragraph -->'
 		. '<!-- wp:heading --><h2 class="wp-block-heading">Propiedad intelectual e industrial</h2><!-- /wp:heading -->'

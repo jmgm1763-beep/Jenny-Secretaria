@@ -137,7 +137,7 @@ function nexxus_art_hub() {
 	);
 
 	$o  = '<svg class="art art--hub" viewBox="0 0 760 480" role="img" aria-labelledby="hub-t" xmlns="http://www.w3.org/2000/svg">';
-	$o .= '<title id="hub-t">NEXXUS en el centro, conectada con Trading Habitat, DS Consultores, REMAGIN, DhHouse y CUALIMETAL</title>';
+	$o .= '<title id="hub-t">NEXXUS Advisor en el centro, conectada con Trading Habitat, DS Consultores, REMAGIN, DhHouse y CUALIMETAL</title>';
 	$o .= '<circle cx="' . $cx . '" cy="' . $cy . '" r="' . $r . '" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="3 7" opacity=".4"/>';
 
 	$count = count( $nodes );

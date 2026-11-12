@@ -35,7 +35,7 @@ $nexxus_owner = nexxus_owner();
 
 </section>
 
-<section class="stats" aria-label="NEXXUS en cifras">
+<section class="stats" aria-label="NEXXUS Advisor en cifras">
 	<div class="wrap">
 		<dl class="stats__list">
 			<?php foreach ( nexxus_stats() as $nexxus_st ) : ?>
@@ -56,8 +56,8 @@ $nexxus_owner = nexxus_owner();
 				<h2 id="quienes-t">El nodo donde el activo se conecta con el sistema que lo construye.</h2>
 			</div>
 			<div class="split__body reveal">
-				<p class="lead">NEXXUS es una marca de consultoría especializada en activos terciarios e industriales y en construcción industrializada. Coordina a cinco empresas líderes en su especialidad para que promotores, inversores y administraciones trabajen con un único responsable durante todo el ciclo del proyecto.</p>
-				<p>Cada partner mantiene su empresa, su equipo y su experiencia. NEXXUS aporta la dirección estratégica, la captación de oportunidades y la coordinación entre todos ellos. El cliente gana certeza de plazo, de coste y de resultado. Los partners ganan acceso a proyectos que por separado no alcanzarían.</p>
+				<p class="lead">NEXXUS Advisor es una marca de consultoría especializada en activos terciarios e industriales y en construcción industrializada. Coordina a cinco empresas líderes en su especialidad para que promotores, inversores y administraciones trabajen con un único responsable durante todo el ciclo del proyecto.</p>
+				<p>Cada partner mantiene su empresa, su equipo y su experiencia. NEXXUS Advisor aporta la dirección estratégica, la captación de oportunidades y la coordinación entre todos ellos. El cliente gana certeza de plazo, de coste y de resultado. Los partners ganan acceso a proyectos que por separado no alcanzarían.</p>
 			</div>
 		</div>
 
@@ -85,7 +85,7 @@ $nexxus_owner = nexxus_owner();
 		<div class="section__head reveal">
 			<p class="eyebrow">El modelo</p>
 			<h2 id="modelo-t">Todo el ciclo del activo. Un solo responsable.</h2>
-			<p class="lead">El proyecto avanza en cinco fases. En cada una interviene el partner especialista, siempre bajo la coordinación de NEXXUS.</p>
+			<p class="lead">El proyecto avanza en cinco fases. En cada una interviene el partner especialista, siempre bajo la coordinación de NEXXUS Advisor.</p>
 		</div>
 
 		<ol class="phases">
@@ -165,7 +165,7 @@ $nexxus_owner = nexxus_owner();
 			<div class="split__head reveal">
 				<p class="eyebrow">Ecosistema</p>
 				<h2 id="eco-t">Cinco especialistas. Una dirección.</h2>
-				<p class="lead">NEXXUS ocupa el centro: capta la oportunidad, define el equipo para cada proyecto y responde ante el cliente. Cada partner trabaja en lo que mejor sabe hacer.</p>
+				<p class="lead">NEXXUS Advisor ocupa el centro: capta la oportunidad, define el equipo para cada proyecto y responde ante el cliente. Cada partner trabaja en lo que mejor sabe hacer.</p>
 			</div>
 			<div class="split__body hub reveal">
 				<?php echo nexxus_art_hub(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
@@ -193,7 +193,7 @@ $nexxus_owner = nexxus_owner();
 					<div class="partner__body">
 						<p><?php echo esc_html( $nexxus_pt['intro'] ); ?></p>
 						<div class="partner__role">
-							<p class="partner__role-label">Papel en NEXXUS</p>
+							<p class="partner__role-label">Papel en NEXXUS Advisor</p>
 							<p><?php echo esc_html( $nexxus_pt['role'] ); ?></p>
 						</div>
 						<details>
@@ -257,7 +257,7 @@ $nexxus_owner = nexxus_owner();
 <section class="section<?php echo $nexxus_projects ? '' : ' section--tint'; ?>" id="ventajas" aria-labelledby="ventajas-t">
 	<div class="wrap">
 		<div class="section__head reveal">
-			<p class="eyebrow">Por qué NEXXUS</p>
+			<p class="eyebrow">Por qué NEXXUS Advisor</p>
 			<h2 id="ventajas-t">Lo que gana el cliente.</h2>
 		</div>
 
@@ -308,14 +308,14 @@ $nexxus_owner = nexxus_owner();
 		</ul>
 
 		<details class="more reveal">
-			<summary>Ver el vínculo de cada partner con NEXXUS</summary>
+			<summary>Ver el vínculo de cada partner con NEXXUS Advisor</summary>
 		<div class="table-wrap">
 			<table class="agreements">
-				<caption class="screen-reader-text">Vínculo de cada partner con NEXXUS</caption>
+				<caption class="screen-reader-text">Vínculo de cada partner con NEXXUS Advisor</caption>
 				<thead>
 					<tr>
 						<th scope="col">Partner</th>
-						<th scope="col">Vínculo con NEXXUS</th>
+						<th scope="col">Vínculo con NEXXUS Advisor</th>
 						<th scope="col">Aporta</th>
 						<th scope="col">Recibe</th>
 					</tr>
