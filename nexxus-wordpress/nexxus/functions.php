@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'NEXXUS_VERSION', '1.6.0' );
+define( 'NEXXUS_VERSION', '1.6.1' );
 
 require get_template_directory() . '/inc/content.php';
 require get_template_directory() . '/inc/illustrations.php';
@@ -43,8 +43,15 @@ add_action( 'after_setup_theme', 'nexxus_setup' );
  * Estilos y scripts.
  */
 function nexxus_assets() {
-	wp_enqueue_style( 'nexxus', get_stylesheet_uri(), array(), NEXXUS_VERSION );
-	wp_enqueue_script( 'nexxus', get_template_directory_uri() . '/assets/js/main.js', array(), NEXXUS_VERSION, true );
+	// La versión va en el nombre del archivo: hay servidores (cachés como Varnish) que ignoran
+	// el parámetro ?ver= y seguirían entregando la hoja de estilos antigua tras una actualización.
+	$dir = get_template_directory();
+	$uri = get_template_directory_uri();
+	$css = '/assets/css/nexxus-' . NEXXUS_VERSION . '.css';
+	$js  = '/assets/js/nexxus-' . NEXXUS_VERSION . '.js';
+
+	wp_enqueue_style( 'nexxus', file_exists( $dir . $css ) ? $uri . $css : get_stylesheet_uri(), array(), NEXXUS_VERSION );
+	wp_enqueue_script( 'nexxus', file_exists( $dir . $js ) ? $uri . $js : $uri . '/assets/js/main.js', array(), NEXXUS_VERSION, true );
 }
 add_action( 'wp_enqueue_scripts', 'nexxus_assets' );
 
