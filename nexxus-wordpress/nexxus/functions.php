@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'NEXXUS_VERSION', '1.4.0' );
+define( 'NEXXUS_VERSION', '1.5.0' );
 
 require get_template_directory() . '/inc/content.php';
 require get_template_directory() . '/inc/illustrations.php';
@@ -25,6 +25,7 @@ function nexxus_setup() {
 	add_theme_support( 'post-thumbnails' );
 	add_image_size( 'nexxus-card', 960, 720, true );
 	add_image_size( 'nexxus-wide', 1920, 820, true );
+	add_image_size( 'nexxus-hero', 2400, 1600, false );
 	add_theme_support( 'html5', array( 'search-form', 'gallery', 'caption', 'style', 'script' ) );
 	add_theme_support( 'responsive-embeds' );
 	add_theme_support( 'align-wide' );
@@ -199,7 +200,7 @@ function nexxus_customize( $wp_customize ) {
 	$wp_customize->add_section(
 		'nexxus_lineas',
 		array(
-			'title'       => 'NEXXUS · Líneas: enlaces y dossieres',
+			'title'       => 'NEXXUS · Especialistas: logos, webs y dossieres',
 			'description' => 'Web de cada especialista y dossier en PDF de cada línea de negocio. Lo que quede vacío no se muestra.',
 			'priority'    => 33,
 		)
@@ -219,6 +220,25 @@ function nexxus_customize( $wp_customize ) {
 				'label'       => 'Web de ' . $partner['name'],
 				'type'        => 'url',
 				'input_attrs' => array( 'placeholder' => 'https://' ),
+			)
+		);
+		$wp_customize->add_setting(
+			'nexxus_logo_' . $partner['id'],
+			array(
+				'default'           => 0,
+				'sanitize_callback' => 'absint',
+			)
+		);
+		$wp_customize->add_control(
+			new WP_Customize_Media_Control(
+				$wp_customize,
+				'nexxus_logo_' . $partner['id'],
+				array(
+					'section'     => 'nexxus_lineas',
+					'label'       => 'Logotipo de ' . $partner['name'],
+					'description' => 'PNG con fondo transparente o SVG. Sustituye al nombre en el apartado Ecosistema.',
+					'mime_type'   => 'image',
+				)
 			)
 		);
 	}
@@ -350,7 +370,9 @@ function nexxus_anchor( $id ) {
  */
 function nexxus_image_slots() {
 	return array(
-		'img_hero'    => 'Portada (sustituye al alzado técnico)',
+		'img_hero'    => 'Portada · fondo a pantalla completa (imagen 1)',
+		'img_hero_2'  => 'Portada · imagen 2 (opcional, se alterna con la 1)',
+		'img_hero_3'  => 'Portada · imagen 3 (opcional)',
 		'img_quienes' => 'Quiénes somos (franja panorámica)',
 		'img_linea_a' => 'Línea A · Activos terciarios e industriales',
 		'img_linea_b' => 'Línea B · Edificación residencial en altura',
@@ -388,4 +410,71 @@ function nexxus_dossier_url( $letter ) {
 	}
 	$url = wp_get_attachment_url( $id );
 	return $url ? $url : '';
+}
+
+/**
+ * Imágenes de fondo de la portada (de una a tres). Vacío si no se ha elegido ninguna.
+ */
+function nexxus_hero_slides() {
+	$slides = array();
+	foreach ( array( 'img_hero', 'img_hero_2', 'img_hero_3' ) as $key ) {
+		$id = absint( get_theme_mod( 'nexxus_' . $key, 0 ) );
+		if ( ! $id ) {
+			continue;
+		}
+		$img = wp_get_attachment_image(
+			$id,
+			'nexxus-hero',
+			false,
+			array(
+				'alt'           => '',
+				'loading'       => $slides ? 'lazy' : 'eager',
+				'fetchpriority' => $slides ? 'auto' : 'high',
+				'sizes'         => '100vw',
+			)
+		);
+		if ( $img ) {
+			$slides[] = $img;
+		}
+	}
+	return $slides;
+}
+
+/**
+ * Fotografía de un hueco, ampliable a pantalla completa.
+ */
+function nexxus_photo( $key, $size, $class, $caption = '' ) {
+	$id = absint( get_theme_mod( 'nexxus_' . $key, 0 ) );
+	if ( ! $id ) {
+		return '';
+	}
+	$img  = wp_get_attachment_image( $id, $size, false, array( 'loading' => 'lazy' ) );
+	$full = wp_get_attachment_image_url( $id, 'full' );
+	if ( ! $img || ! $full ) {
+		return '';
+	}
+	return '<figure class="photo ' . esc_attr( $class ) . '"><a class="zoom" href="' . esc_url( $full ) . '" data-caption="' . esc_attr( $caption ) . '" aria-label="Ampliar imagen">' . $img . '</a></figure>';
+}
+
+/**
+ * Logotipo de un especialista si se ha subido; si no, su nombre.
+ */
+function nexxus_partner_mark( $partner, $class = 'plogo' ) {
+	$id = absint( get_theme_mod( 'nexxus_logo_' . $partner['id'], 0 ) );
+	if ( $id ) {
+		$img = wp_get_attachment_image(
+			$id,
+			'medium',
+			false,
+			array(
+				'class'   => $class,
+				'alt'     => $partner['name'],
+				'loading' => 'lazy',
+			)
+		);
+		if ( $img ) {
+			return $img;
+		}
+	}
+	return esc_html( $partner['name'] );
 }

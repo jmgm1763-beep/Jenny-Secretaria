@@ -14,7 +14,7 @@ $nexxus_nav   = array(
 	'ventajas'      => 'Por qué NEXXUS Advisor',
 );
 if ( nexxus_get_projects( 1 ) ) {
-	$nexxus_nav = array_slice( $nexxus_nav, 0, 4, true ) + array( 'proyectos' => 'Proyectos' ) + array_slice( $nexxus_nav, 4, null, true );
+	$nexxus_nav = array_slice( $nexxus_nav, 0, 3, true ) + array( 'proyectos' => 'Proyectos' ) + array_slice( $nexxus_nav, 3, null, true );
 }
 ?>
 <!doctype html>

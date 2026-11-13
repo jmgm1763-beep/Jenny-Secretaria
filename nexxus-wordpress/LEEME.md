@@ -37,6 +37,13 @@ Apariencia → Personalizar → **NEXXUS · Líneas: enlaces y dossieres**:
 
 Lo que quede vacío no se muestra.
 
+## Portada a pantalla completa, visor, estados y logotipos (desde la versión 1.5)
+
+- **Portada con imagen de fondo:** Personalizar → NEXXUS · Imágenes → «Portada · fondo a pantalla completa». Admite hasta tres imágenes, que se alternan. Sin imagen, se muestra el alzado técnico.
+- **Visor a pantalla completa:** al pulsar cualquier fotografía se abre ampliada, con flechas para pasar a la siguiente.
+- **Proyectos ejecutados y en proceso:** en cada proyecto, marque el *Estado*. La portada muestra un filtro cuando hay proyectos de ambos tipos.
+- **Logotipos de los especialistas:** Personalizar → NEXXUS · Especialistas: logos, webs y dossieres. PNG con fondo transparente o SVG. Sin logotipo, se muestra el nombre.
+
 ## Antes de publicar
 
 - **Textos legales.** Al activar el tema se crean dos páginas en **borrador**: «Aviso legal» y «Política de privacidad». Son un punto de partida con los datos del titular; revíselas con su asesor legal y publíquelas. En cuanto estén publicadas, el enlace aparece solo en el pie y en el formulario.

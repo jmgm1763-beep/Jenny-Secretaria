@@ -12,7 +12,15 @@ $nexxus_email = nexxus_opt( 'contact_email' );
 $nexxus_owner = nexxus_owner();
 ?>
 
-<section class="hero" aria-labelledby="hero-t">
+<?php $nexxus_slides = nexxus_hero_slides(); ?>
+<section class="hero<?php echo $nexxus_slides ? ' hero--photo' : ''; ?>" aria-labelledby="hero-t">
+	<?php if ( $nexxus_slides ) : ?>
+		<div class="hero__bg" aria-hidden="true">
+			<?php foreach ( $nexxus_slides as $nexxus_i => $nexxus_slide ) : ?>
+				<figure class="hero__slide<?php echo 0 === $nexxus_i ? ' is-active' : ''; ?>"><?php echo $nexxus_slide; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></figure>
+			<?php endforeach; ?>
+		</div>
+	<?php endif; ?>
 	<div class="wrap hero__in">
 		<div class="hero__text">
 			<p class="eyebrow">Real Estate &amp; construcción industrializada</p>
@@ -23,10 +31,7 @@ $nexxus_owner = nexxus_owner();
 				<a class="btn btn--ghost" href="#modelo">Cómo trabajamos</a>
 			</div>
 		</div>
-		<?php $nexxus_hero_img = nexxus_img( 'img_hero', 'large', array( 'loading' => 'eager', 'fetchpriority' => 'high' ) ); ?>
-		<?php if ( $nexxus_hero_img ) : ?>
-			<figure class="photo hero__photo"><?php echo $nexxus_hero_img; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></figure>
-		<?php else : ?>
+		<?php if ( ! $nexxus_slides ) : ?>
 			<div class="hero__art">
 				<?php echo nexxus_art_alzado(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 			</div>
@@ -61,10 +66,7 @@ $nexxus_owner = nexxus_owner();
 			</div>
 		</div>
 
-		<?php $nexxus_band = nexxus_img( 'img_quienes', 'nexxus-wide' ); ?>
-		<?php if ( $nexxus_band ) : ?>
-			<figure class="photo band reveal"><?php echo $nexxus_band; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></figure>
-		<?php endif; ?>
+		<?php echo nexxus_photo( 'img_quienes', 'nexxus-wide', 'band reveal', 'NEXXUS Advisor' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 
 		<ul class="pillars">
 			<?php $nexxus_pillar_icons = array( 'activo', 'capital', 'sistema' ); ?>
@@ -117,7 +119,7 @@ $nexxus_owner = nexxus_owner();
 				<article class="line reveal<?php echo 'A' === $nexxus_l['letter'] ? ' line--main' : ''; ?>">
 					<?php $nexxus_line_img = nexxus_img( 'img_linea_' . strtolower( $nexxus_l['letter'] ) ); ?>
 					<?php if ( $nexxus_line_img ) : ?>
-						<figure class="photo line__photo"><?php echo $nexxus_line_img; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></figure>
+						<?php echo nexxus_photo( 'img_linea_' . strtolower( $nexxus_l['letter'] ), 'nexxus-card', 'line__photo', $nexxus_l['title'] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 					<?php else : ?>
 						<div class="line__art"><?php echo nexxus_art_line( $nexxus_l['art'] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></div>
 					<?php endif; ?>
@@ -159,6 +161,69 @@ $nexxus_owner = nexxus_owner();
 	</div>
 </section>
 
+<?php $nexxus_projects = nexxus_get_projects(); ?>
+<?php if ( $nexxus_projects ) : ?>
+<?php
+$nexxus_counts = array(
+	'ejecutado'  => 0,
+	'en-proceso' => 0,
+);
+foreach ( $nexxus_projects as $nexxus_pr ) {
+	$nexxus_counts[ nexxus_project_status( $nexxus_pr->ID ) ]++;
+}
+$nexxus_status_labels = array(
+	'ejecutado'  => 'Ejecutado',
+	'en-proceso' => 'En proceso',
+);
+?>
+<section class="section section--tint" id="proyectos" aria-labelledby="proyectos-t">
+	<div class="wrap">
+		<div class="section__head section__head--row reveal">
+			<div>
+				<p class="eyebrow">Proyectos</p>
+				<h2 id="proyectos-t">Ejecutados y en proceso.</h2>
+			</div>
+			<?php if ( $nexxus_counts['ejecutado'] && $nexxus_counts['en-proceso'] ) : ?>
+				<div class="pfilter" role="group" aria-label="Filtrar proyectos por estado">
+					<button type="button" class="pfilter__btn is-on" data-filter="todos" aria-pressed="true">Todos <span><?php echo esc_html( count( $nexxus_projects ) ); ?></span></button>
+					<button type="button" class="pfilter__btn" data-filter="ejecutado" aria-pressed="false">Ejecutados <span><?php echo esc_html( $nexxus_counts['ejecutado'] ); ?></span></button>
+					<button type="button" class="pfilter__btn" data-filter="en-proceso" aria-pressed="false">En proceso <span><?php echo esc_html( $nexxus_counts['en-proceso'] ); ?></span></button>
+				</div>
+			<?php endif; ?>
+		</div>
+
+		<div class="projects">
+			<?php foreach ( $nexxus_projects as $nexxus_pr ) : ?>
+				<?php
+				$nexxus_st      = nexxus_project_status( $nexxus_pr->ID );
+				$nexxus_caption = get_the_title( $nexxus_pr ) . ( has_excerpt( $nexxus_pr ) ? ' · ' . get_the_excerpt( $nexxus_pr ) : '' );
+				?>
+				<article class="project reveal" data-status="<?php echo esc_attr( $nexxus_st ); ?>">
+					<?php if ( has_post_thumbnail( $nexxus_pr ) ) : ?>
+						<figure class="photo project__img">
+							<a class="zoom" href="<?php echo esc_url( get_the_post_thumbnail_url( $nexxus_pr, 'full' ) ); ?>" data-caption="<?php echo esc_attr( $nexxus_caption ); ?>" aria-label="<?php echo esc_attr( 'Ampliar imagen: ' . get_the_title( $nexxus_pr ) ); ?>"><?php echo get_the_post_thumbnail( $nexxus_pr, 'nexxus-card', array( 'loading' => 'lazy' ) ); ?></a>
+							<span class="project__status project__status--<?php echo esc_attr( $nexxus_st ); ?>"><?php echo esc_html( $nexxus_status_labels[ $nexxus_st ] ); ?></span>
+						</figure>
+					<?php else : ?>
+						<div class="project__img project__img--empty">
+							<?php echo nexxus_isotipo(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+							<span class="project__status project__status--<?php echo esc_attr( $nexxus_st ); ?>"><?php echo esc_html( $nexxus_status_labels[ $nexxus_st ] ); ?></span>
+						</div>
+					<?php endif; ?>
+					<?php if ( nexxus_project_partner( $nexxus_pr->ID ) ) : ?>
+						<p class="project__partner"><?php echo esc_html( nexxus_project_partner( $nexxus_pr->ID ) ); ?></p>
+					<?php endif; ?>
+					<h3><?php echo esc_html( get_the_title( $nexxus_pr ) ); ?></h3>
+					<?php if ( has_excerpt( $nexxus_pr ) ) : ?>
+						<p><?php echo esc_html( get_the_excerpt( $nexxus_pr ) ); ?></p>
+					<?php endif; ?>
+				</article>
+			<?php endforeach; ?>
+		</div>
+	</div>
+</section>
+<?php endif; ?>
+
 <section class="section" id="ecosistema" aria-labelledby="eco-t">
 	<div class="wrap">
 		<div class="split split--center">
@@ -176,7 +241,7 @@ $nexxus_owner = nexxus_owner();
 			<?php foreach ( nexxus_partners() as $nexxus_pt ) : ?>
 				<button class="ptab" type="button" role="tab" id="tab-<?php echo esc_attr( $nexxus_pt['id'] ); ?>" aria-controls="<?php echo esc_attr( $nexxus_pt['id'] ); ?>" aria-selected="false">
 					<span><?php echo esc_html( $nexxus_pt['kind'] ); ?></span>
-					<?php echo esc_html( $nexxus_pt['name'] ); ?>
+					<?php echo nexxus_partner_mark( $nexxus_pt ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 				</button>
 			<?php endforeach; ?>
 		</div>
@@ -186,7 +251,7 @@ $nexxus_owner = nexxus_owner();
 				<article class="partner" id="<?php echo esc_attr( $nexxus_pt['id'] ); ?>" role="tabpanel" aria-labelledby="tab-<?php echo esc_attr( $nexxus_pt['id'] ); ?>">
 					<header class="partner__head">
 						<p class="partner__kind"><?php echo esc_html( $nexxus_pt['kind'] ); ?></p>
-						<h3><?php echo esc_html( $nexxus_pt['name'] ); ?></h3>
+						<h3><?php echo nexxus_partner_mark( $nexxus_pt, 'plogo plogo--lg' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></h3>
 						<p class="partner__meta"><?php echo esc_html( $nexxus_pt['meta'] ); ?> <span class="partner__line"><?php echo esc_html( $nexxus_pt['lines'] ); ?></span></p>
 					</header>
 
@@ -223,38 +288,7 @@ $nexxus_owner = nexxus_owner();
 	</div>
 </section>
 
-<?php $nexxus_projects = nexxus_get_projects(); ?>
-<?php if ( $nexxus_projects ) : ?>
-<section class="section section--tint" id="proyectos" aria-labelledby="proyectos-t">
-	<div class="wrap">
-		<div class="section__head reveal">
-			<p class="eyebrow">Proyectos</p>
-			<h2 id="proyectos-t">Obras ejecutadas por nuestros partners.</h2>
-		</div>
-
-		<div class="projects">
-			<?php foreach ( $nexxus_projects as $nexxus_pr ) : ?>
-				<article class="project reveal">
-					<?php if ( has_post_thumbnail( $nexxus_pr ) ) : ?>
-						<figure class="photo project__img"><?php echo get_the_post_thumbnail( $nexxus_pr, 'nexxus-card', array( 'loading' => 'lazy' ) ); ?></figure>
-					<?php else : ?>
-						<div class="project__img project__img--empty"><?php echo nexxus_isotipo(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></div>
-					<?php endif; ?>
-					<?php if ( nexxus_project_partner( $nexxus_pr->ID ) ) : ?>
-						<p class="project__partner"><?php echo esc_html( nexxus_project_partner( $nexxus_pr->ID ) ); ?></p>
-					<?php endif; ?>
-					<h3><?php echo esc_html( get_the_title( $nexxus_pr ) ); ?></h3>
-					<?php if ( has_excerpt( $nexxus_pr ) ) : ?>
-						<p><?php echo esc_html( get_the_excerpt( $nexxus_pr ) ); ?></p>
-					<?php endif; ?>
-				</article>
-			<?php endforeach; ?>
-		</div>
-	</div>
-</section>
-<?php endif; ?>
-
-<section class="section<?php echo $nexxus_projects ? '' : ' section--tint'; ?>" id="ventajas" aria-labelledby="ventajas-t">
+<section class="section section--tint" id="ventajas" aria-labelledby="ventajas-t">
 	<div class="wrap">
 		<div class="section__head reveal">
 			<p class="eyebrow">Por qué NEXXUS Advisor</p>
