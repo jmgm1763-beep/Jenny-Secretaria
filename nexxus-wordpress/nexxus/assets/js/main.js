@@ -103,7 +103,7 @@
 
 	// Portada: alterna las imágenes de fondo.
 	var slides = document.querySelectorAll('.hero__slide');
-	if (slides.length > 1 && !(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) {
+	if (slides.length > 1 && !document.querySelector('.hero__video') && !(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) {
 		var current = 0;
 		window.setInterval(function () {
 			slides[current].classList.remove('is-active');
@@ -127,21 +127,72 @@
 		setBar();
 	}
 
-	// Proyectos: filtro por estado.
+	// Proyectos: filtros combinados por estado y por línea de negocio.
 	var filterBtns = Array.prototype.slice.call(document.querySelectorAll('.pfilter__btn'));
+	var filterState = { status: 'todos', line: 'todos' };
 	filterBtns.forEach(function (btn) {
 		btn.addEventListener('click', function () {
-			var f = btn.getAttribute('data-filter');
+			var group = btn.getAttribute('data-group');
+			filterState[group] = btn.getAttribute('data-filter');
 			filterBtns.forEach(function (b) {
+				if (b.getAttribute('data-group') !== group) { return; }
 				var on = b === btn;
 				b.classList.toggle('is-on', on);
 				b.setAttribute('aria-pressed', on ? 'true' : 'false');
 			});
-			document.querySelectorAll('.project').forEach(function (card) {
-				card.hidden = !(f === 'todos' || card.getAttribute('data-status') === f);
+			document.querySelectorAll('#proyectos .project').forEach(function (card) {
+				var okStatus = filterState.status === 'todos' || card.getAttribute('data-status') === filterState.status;
+				var okLine = filterState.line === 'todos' || card.getAttribute('data-line') === filterState.line;
+				card.hidden = !(okStatus && okLine);
 				card.classList.add('is-in');
 			});
 		});
+	});
+
+	// Portada: botón para pausar el vídeo de fondo.
+	var heroVideo = document.querySelector('.hero__video');
+	var pauseBtn = document.querySelector('.hero__pause');
+	if (heroVideo && pauseBtn) {
+		if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+			heroVideo.removeAttribute('autoplay');
+			heroVideo.pause();
+			pauseBtn.textContent = 'Reproducir vídeo';
+			pauseBtn.setAttribute('aria-pressed', 'true');
+		}
+		pauseBtn.addEventListener('click', function () {
+			if (heroVideo.paused) {
+				heroVideo.play();
+				pauseBtn.textContent = 'Pausar vídeo';
+				pauseBtn.setAttribute('aria-pressed', 'false');
+			} else {
+				heroVideo.pause();
+				pauseBtn.textContent = 'Reproducir vídeo';
+				pauseBtn.setAttribute('aria-pressed', 'true');
+			}
+		});
+	}
+
+	// Ficha de proyecto: las fotos del texto y de la galería también se amplían.
+	document.querySelectorAll('.project-body img').forEach(function (img) {
+		if (img.closest('a')) { return; }
+		var full = img.getAttribute('data-full-url');
+		if (!full && img.srcset) {
+			var best = 0;
+			img.srcset.split(',').forEach(function (part) {
+				var bits = part.trim().split(/\s+/);
+				var w = parseInt(bits[1], 10) || 0;
+				if (w > best) { best = w; full = bits[0]; }
+			});
+		}
+		var fig = img.closest('figure');
+		var cap = fig && fig.querySelector('figcaption') ? fig.querySelector('figcaption').textContent : (img.alt || '');
+		var a = document.createElement('a');
+		a.className = 'zoom';
+		a.href = full || img.src;
+		a.setAttribute('data-caption', cap);
+		a.setAttribute('aria-label', 'Ampliar imagen');
+		img.parentNode.insertBefore(a, img);
+		a.appendChild(img);
 	});
 
 	// Visor de imágenes a pantalla completa.

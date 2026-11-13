@@ -12,14 +12,26 @@ $nexxus_email = nexxus_opt( 'contact_email' );
 $nexxus_owner = nexxus_owner();
 ?>
 
-<?php $nexxus_slides = nexxus_hero_slides(); ?>
-<section class="hero<?php echo $nexxus_slides ? ' hero--photo' : ''; ?>" aria-labelledby="hero-t">
-	<?php if ( $nexxus_slides ) : ?>
+<?php
+$nexxus_slides = nexxus_hero_slides();
+$nexxus_video  = nexxus_hero_video();
+$nexxus_poster = absint( get_theme_mod( 'nexxus_img_hero', 0 ) ) ? wp_get_attachment_image_url( absint( get_theme_mod( 'nexxus_img_hero', 0 ) ), 'nexxus-hero' ) : '';
+?>
+<section class="hero<?php echo ( $nexxus_slides || $nexxus_video ) ? ' hero--photo' : ''; ?>" aria-labelledby="hero-t">
+	<?php if ( $nexxus_slides || $nexxus_video ) : ?>
 		<div class="hero__bg" aria-hidden="true">
 			<?php foreach ( $nexxus_slides as $nexxus_i => $nexxus_slide ) : ?>
 				<figure class="hero__slide<?php echo 0 === $nexxus_i ? ' is-active' : ''; ?>"><?php echo $nexxus_slide; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></figure>
 			<?php endforeach; ?>
+			<?php if ( $nexxus_video ) : ?>
+				<video class="hero__video" autoplay muted loop playsinline preload="metadata"<?php echo $nexxus_poster ? ' poster="' . esc_url( $nexxus_poster ) . '"' : ''; ?>>
+					<source src="<?php echo esc_url( $nexxus_video['url'] ); ?>" type="<?php echo esc_attr( $nexxus_video['type'] ); ?>">
+				</video>
+			<?php endif; ?>
 		</div>
+		<?php if ( $nexxus_video ) : ?>
+			<button class="hero__pause" type="button" aria-pressed="false">Pausar vídeo</button>
+		<?php endif; ?>
 	<?php endif; ?>
 	<div class="wrap hero__in">
 		<div class="hero__text">
@@ -31,7 +43,7 @@ $nexxus_owner = nexxus_owner();
 				<a class="btn btn--ghost" href="#modelo">Cómo trabajamos</a>
 			</div>
 		</div>
-		<?php if ( ! $nexxus_slides ) : ?>
+		<?php if ( ! $nexxus_slides && ! $nexxus_video ) : ?>
 			<div class="hero__art">
 				<?php echo nexxus_art_alzado(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 			</div>
@@ -183,11 +195,35 @@ $nexxus_status_labels = array(
 				<p class="eyebrow">Proyectos</p>
 				<h2 id="proyectos-t">Ejecutados y en proceso.</h2>
 			</div>
-			<?php if ( $nexxus_counts['ejecutado'] && $nexxus_counts['en-proceso'] ) : ?>
-				<div class="pfilter" role="group" aria-label="Filtrar proyectos por estado">
-					<button type="button" class="pfilter__btn is-on" data-filter="todos" aria-pressed="true">Todos <span><?php echo esc_html( count( $nexxus_projects ) ); ?></span></button>
-					<button type="button" class="pfilter__btn" data-filter="ejecutado" aria-pressed="false">Ejecutados <span><?php echo esc_html( $nexxus_counts['ejecutado'] ); ?></span></button>
-					<button type="button" class="pfilter__btn" data-filter="en-proceso" aria-pressed="false">En proceso <span><?php echo esc_html( $nexxus_counts['en-proceso'] ); ?></span></button>
+			<?php
+			$nexxus_line_counts = array();
+			foreach ( $nexxus_projects as $nexxus_pr ) {
+				$nexxus_ln = nexxus_project_line( $nexxus_pr->ID );
+				if ( $nexxus_ln ) {
+					$nexxus_line_counts[ $nexxus_ln ] = isset( $nexxus_line_counts[ $nexxus_ln ] ) ? $nexxus_line_counts[ $nexxus_ln ] + 1 : 1;
+				}
+			}
+			ksort( $nexxus_line_counts );
+			$nexxus_show_status = $nexxus_counts['ejecutado'] && $nexxus_counts['en-proceso'];
+			$nexxus_show_lines  = count( $nexxus_line_counts ) > 1;
+			?>
+			<?php if ( $nexxus_show_status || $nexxus_show_lines ) : ?>
+				<div class="pfilters">
+					<?php if ( $nexxus_show_status ) : ?>
+						<div class="pfilter" role="group" aria-label="Filtrar proyectos por estado">
+							<button type="button" class="pfilter__btn is-on" data-group="status" data-filter="todos" aria-pressed="true">Todos <span><?php echo esc_html( count( $nexxus_projects ) ); ?></span></button>
+							<button type="button" class="pfilter__btn" data-group="status" data-filter="ejecutado" aria-pressed="false">Ejecutados <span><?php echo esc_html( $nexxus_counts['ejecutado'] ); ?></span></button>
+							<button type="button" class="pfilter__btn" data-group="status" data-filter="en-proceso" aria-pressed="false">En proceso <span><?php echo esc_html( $nexxus_counts['en-proceso'] ); ?></span></button>
+						</div>
+					<?php endif; ?>
+					<?php if ( $nexxus_show_lines ) : ?>
+						<div class="pfilter pfilter--line" role="group" aria-label="Filtrar proyectos por línea de negocio">
+							<button type="button" class="pfilter__btn is-on" data-group="line" data-filter="todos" aria-pressed="true">Todas las líneas</button>
+							<?php foreach ( $nexxus_line_counts as $nexxus_ln => $nexxus_n ) : ?>
+								<button type="button" class="pfilter__btn" data-group="line" data-filter="<?php echo esc_attr( $nexxus_ln ); ?>" aria-pressed="false">Línea <?php echo esc_html( strtoupper( $nexxus_ln ) ); ?> <span><?php echo esc_html( $nexxus_n ); ?></span></button>
+							<?php endforeach; ?>
+						</div>
+					<?php endif; ?>
 				</div>
 			<?php endif; ?>
 		</div>
@@ -198,7 +234,7 @@ $nexxus_status_labels = array(
 				$nexxus_st      = nexxus_project_status( $nexxus_pr->ID );
 				$nexxus_caption = get_the_title( $nexxus_pr ) . ( has_excerpt( $nexxus_pr ) ? ' · ' . get_the_excerpt( $nexxus_pr ) : '' );
 				?>
-				<article class="project reveal" data-status="<?php echo esc_attr( $nexxus_st ); ?>">
+				<article class="project reveal" data-status="<?php echo esc_attr( $nexxus_st ); ?>" data-line="<?php echo esc_attr( nexxus_project_line( $nexxus_pr->ID ) ); ?>">
 					<?php if ( has_post_thumbnail( $nexxus_pr ) ) : ?>
 						<figure class="photo project__img">
 							<a class="zoom" href="<?php echo esc_url( get_the_post_thumbnail_url( $nexxus_pr, 'full' ) ); ?>" data-caption="<?php echo esc_attr( $nexxus_caption ); ?>" aria-label="<?php echo esc_attr( 'Ampliar imagen: ' . get_the_title( $nexxus_pr ) ); ?>"><?php echo get_the_post_thumbnail( $nexxus_pr, 'nexxus-card', array( 'loading' => 'lazy' ) ); ?></a>
@@ -213,7 +249,11 @@ $nexxus_status_labels = array(
 					<?php if ( nexxus_project_partner( $nexxus_pr->ID ) ) : ?>
 						<p class="project__partner"><?php echo esc_html( nexxus_project_partner( $nexxus_pr->ID ) ); ?></p>
 					<?php endif; ?>
-					<h3><?php echo esc_html( get_the_title( $nexxus_pr ) ); ?></h3>
+					<?php if ( nexxus_project_has_detail( $nexxus_pr ) ) : ?>
+						<h3><a class="project__link" href="<?php echo esc_url( get_permalink( $nexxus_pr ) ); ?>"><?php echo esc_html( get_the_title( $nexxus_pr ) ); ?></a></h3>
+					<?php else : ?>
+						<h3><?php echo esc_html( get_the_title( $nexxus_pr ) ); ?></h3>
+					<?php endif; ?>
 					<?php if ( has_excerpt( $nexxus_pr ) ) : ?>
 						<p><?php echo esc_html( get_the_excerpt( $nexxus_pr ) ); ?></p>
 					<?php endif; ?>

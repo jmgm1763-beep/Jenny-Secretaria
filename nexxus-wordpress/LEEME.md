@@ -44,6 +44,12 @@ Lo que quede vacío no se muestra.
 - **Proyectos ejecutados y en proceso:** en cada proyecto, marque el *Estado*. La portada muestra un filtro cuando hay proyectos de ambos tipos.
 - **Logotipos de los especialistas:** Personalizar → NEXXUS · Especialistas: logos, webs y dossieres. PNG con fondo transparente o SVG. Sin logotipo, se muestra el nombre.
 
+## Vídeo de portada, filtro por línea y ficha de proyecto (desde la versión 1.6)
+
+- **Vídeo de fondo en la portada:** Personalizar → NEXXUS · Imágenes → «Portada · vídeo de fondo». MP4 sin sonido, 10–20 segundos, 1920×1080 y menos de 8 MB. Incluye un botón para pausarlo.
+- **Filtro por línea de negocio:** en cada proyecto, marque su *Línea de negocio*. El filtro aparece cuando hay proyectos de al menos dos líneas.
+- **Ficha de proyecto:** al editar un proyecto puede escribir un texto, insertar una galería de fotos y rellenar «Datos del proyecto» (ubicación, superficie, plazo, sistema, año y cliente). Si tiene texto o datos, su título enlaza a una página propia.
+
 ## Antes de publicar
 
 - **Textos legales.** Al activar el tema se crean dos páginas en **borrador**: «Aviso legal» y «Política de privacidad». Son un punto de partida con los datos del titular; revíselas con su asesor legal y publíquelas. En cuanto estén publicadas, el enlace aparece solo en el pie y en el formulario.

@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'NEXXUS_VERSION', '1.5.0' );
+define( 'NEXXUS_VERSION', '1.6.0' );
 
 require get_template_directory() . '/inc/content.php';
 require get_template_directory() . '/inc/illustrations.php';
@@ -195,6 +195,28 @@ function nexxus_customize( $wp_customize ) {
 			)
 		);
 	}
+
+	// Vídeo de fondo de la portada (opcional).
+	$wp_customize->add_setting(
+		'nexxus_hero_video',
+		array(
+			'default'           => 0,
+			'sanitize_callback' => 'absint',
+		)
+	);
+	$wp_customize->add_control(
+		new WP_Customize_Media_Control(
+			$wp_customize,
+			'nexxus_hero_video',
+			array(
+				'section'     => 'nexxus_imagenes',
+				'label'       => 'Portada · vídeo de fondo (opcional)',
+				'description' => 'MP4 sin sonido, de 10 a 20 segundos, 1920×1080 y menos de 8 MB. Si hay vídeo, sustituye a las imágenes de portada; la imagen 1 se usa mientras carga.',
+				'mime_type'   => 'video',
+				'priority'    => 5,
+			)
+		)
+	);
 
 	// Webs de los especialistas y dossieres descargables por línea de negocio.
 	$wp_customize->add_section(
@@ -477,4 +499,23 @@ function nexxus_partner_mark( $partner, $class = 'plogo' ) {
 		}
 	}
 	return esc_html( $partner['name'] );
+}
+
+/**
+ * Vídeo de fondo de la portada: array con 'url' y 'type', o array vacío.
+ */
+function nexxus_hero_video() {
+	$id = absint( get_theme_mod( 'nexxus_hero_video', 0 ) );
+	if ( ! $id ) {
+		return array();
+	}
+	$url  = wp_get_attachment_url( $id );
+	$type = get_post_mime_type( $id );
+	if ( ! $url || 0 !== strpos( (string) $type, 'video/' ) ) {
+		return array();
+	}
+	return array(
+		'url'  => $url,
+		'type' => $type,
+	);
 }

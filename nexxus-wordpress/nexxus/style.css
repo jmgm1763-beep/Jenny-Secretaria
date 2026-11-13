@@ -3,7 +3,7 @@ Theme Name: NEXXUS
 Theme URI: https://github.com/jmgm1763-beep/jenny-secretaria
 Author: Josep M. González · Consultor Inmobiliario
 Description: Web corporativa de NEXXUS · Real Estate y construcción industrializada. Página única construida a partir del Dossier Corporativo (Ed. 01) y del Manual de Identidad v1.0: azul noche, acentos en azul tecnológico, tipografía Montserrat y esquemas técnicos vectoriales. Incluye formulario de contacto propio, sin plugins ni llamadas a servicios externos.
-Version: 1.5.0
+Version: 1.6.0
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 7.4
@@ -1099,6 +1099,75 @@ h2 { font-size: clamp(2rem, 4.2vw, 3.375rem); letter-spacing: -.025em; line-heig
 	.lb__next { right: 8px; }
 	.lb__fig img { max-height: calc(100svh - 200px); }
 	.plogo { height: 28px; max-width: 120px; }
+}
+
+/* ---------- v1.6 · Vídeo de portada, filtro por línea y ficha de proyecto ---------- */
+.hero__video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.hero__pause {
+	position: absolute;
+	right: var(--gutter); bottom: 20px;
+	z-index: 2;
+	min-height: 40px;
+	padding: 8px 14px;
+	border: 1px solid rgba(255, 255, 255, .45);
+	background: rgba(3, 19, 41, .55);
+	color: var(--white);
+	font: inherit;
+	font-size: .75rem;
+	font-weight: 600;
+	letter-spacing: .06em;
+	cursor: pointer;
+}
+.hero__pause:hover { border-color: var(--cyan); }
+
+.pfilters { display: grid; gap: 10px; justify-items: start; flex-basis: 100%; }
+.pfilter--line .pfilter__btn { border-color: var(--rule); font-weight: 600; }
+.pfilter--line .pfilter__btn.is-on { border-color: var(--navy); }
+.project__link { text-decoration: none; background: linear-gradient(var(--cyan), var(--cyan)) 0 100% / 0 2px no-repeat; transition: background-size .3s; padding-bottom: 2px; }
+.project__link::after { content: " →"; color: var(--cyan); }
+.project__link:hover { background-size: 100% 2px; }
+
+.phero { position: relative; isolation: isolate; background: var(--navy); color: var(--white); }
+.phero__in { padding-block: clamp(40px, 6vw, 72px); }
+.phero--photo .phero__in { display: flex; flex-direction: column; justify-content: flex-end; min-height: min(72svh, 720px); pointer-events: none; }
+.phero--photo .phero__in a { pointer-events: auto; }
+.phero__bg { position: absolute; inset: 0; z-index: -1; margin: 0; }
+.phero__bg img { width: 100%; height: 100%; object-fit: cover; }
+.phero__bg .zoom::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	z-index: 1;
+	background: linear-gradient(0deg, rgba(3, 19, 41, .94) 0%, rgba(6, 29, 56, .55) 45%, rgba(6, 29, 56, .25) 100%);
+}
+.phero__bg .zoom::after { top: 14px; bottom: auto; opacity: 1; z-index: 2; }
+.phero__back { margin: 0 0 auto; padding-bottom: 32px; }
+.phero__back a { font-size: .8125rem; font-weight: 700; text-decoration: none; border-bottom: 1px solid var(--cyan); padding-bottom: 3px; }
+.phero__back a::before { content: "← "; color: var(--cyan); }
+.phero__tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 18px; }
+.phero__tags .project__status { position: static; }
+.phero__line { padding: 6px 12px; border: 1px solid rgba(255, 255, 255, .5); font-size: .625rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+.phero h1 { max-width: 18ch; font-size: clamp(2.25rem, 5.4vw, 4.5rem); line-height: 1.02; letter-spacing: -.03em; }
+.phero__lead { max-width: 46ch; margin: 20px 0 0; color: var(--silver); font-size: clamp(1.0625rem, 1.5vw, 1.25rem); font-weight: 500; }
+
+.pficha__grid { display: grid; grid-template-columns: minmax(0, 320px) minmax(0, 1fr); gap: clamp(32px, 6vw, 96px); align-items: start; padding-block: clamp(48px, 7vw, 104px); }
+.pfacts { position: sticky; top: calc(var(--header-h) + 24px); }
+.pfacts dl { margin-bottom: 28px; border-top: 3px solid var(--navy); }
+.pfacts dl > div { padding: 14px 0; border-bottom: 1px solid var(--rule); }
+.pfacts dt { margin-bottom: 2px; color: var(--ink-soft); font-size: .6875rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+.pfacts dd { font-size: 1.0625rem; font-weight: 700; line-height: 1.35; }
+.project-body { max-width: 760px; font-size: 1.0625rem; }
+.project-body > :first-child { margin-top: 0; }
+.project-body figure { margin: 2em 0; }
+.project-body .wp-block-gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.project-body .wp-block-gallery figure { margin: 0; }
+.project-body .wp-block-gallery img { width: 100%; height: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+.project-body figcaption { margin-top: 8px; color: var(--ink-soft); font-size: .8125rem; }
+
+@media (max-width: 960px) {
+	.pfilters { justify-items: start; }
+	.pficha__grid { grid-template-columns: 1fr; }
+	.pfacts { position: static; }
 }
 
 /* ---------- Aparición suave (solo con JavaScript y sin preferencia de movimiento reducido) ---------- */
