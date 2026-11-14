@@ -50,6 +50,14 @@ Lo que quede vacío no se muestra.
 - **Filtro por línea de negocio:** en cada proyecto, marque su *Línea de negocio*. El filtro aparece cuando hay proyectos de al menos dos líneas.
 - **Ficha de proyecto:** al editar un proyecto puede escribir un texto, insertar una galería de fotos y rellenar «Datos del proyecto» (ubicación, superficie, plazo, sistema, año y cliente). Si tiene texto o datos, su título enlaza a una página propia.
 
+## Club Deal Inmobiliario (desde la versión 1.7)
+
+Sección de coinversión con explicación, pasos y formulario propio de solicitud de información.
+
+- Textos, aviso legal y correo de destino: Personalizar → **NEXXUS · Club Deal**. Desde ahí también se puede ocultar la sección.
+- Las solicitudes llegan con el asunto «NEXXUS Advisor · Club Deal · Solicitud de …».
+- Revise los textos con su asesor legal antes de publicarlos: la captación de inversores está regulada.
+
 ## Antes de publicar
 
 - **Textos legales.** Al activar el tema se crean dos páginas en **borrador**: «Aviso legal» y «Política de privacidad». Son un punto de partida con los datos del titular; revíselas con su asesor legal y publíquelas. En cuanto estén publicadas, el enlace aparece solo en el pie y en el formulario.

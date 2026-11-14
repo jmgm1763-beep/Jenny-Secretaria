@@ -3,7 +3,7 @@ Theme Name: NEXXUS
 Theme URI: https://github.com/jmgm1763-beep/jenny-secretaria
 Author: Josep M. González · Consultor Inmobiliario
 Description: Web corporativa de NEXXUS · Real Estate y construcción industrializada. Página única construida a partir del Dossier Corporativo (Ed. 01) y del Manual de Identidad v1.0: azul noche, acentos en azul tecnológico, tipografía Montserrat y esquemas técnicos vectoriales. Incluye formulario de contacto propio, sin plugins ni llamadas a servicios externos.
-Version: 1.6.1
+Version: 1.7.0
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 7.4
@@ -1168,6 +1168,26 @@ h2 { font-size: clamp(2rem, 4.2vw, 3.375rem); letter-spacing: -.025em; line-heig
 	.pfilters { justify-items: start; }
 	.pficha__grid { grid-template-columns: 1fr; }
 	.pfacts { position: static; }
+}
+
+/* ---------- v1.7 · Club Deal Inmobiliario ---------- */
+.club__in { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .9fr); gap: clamp(40px, 6vw, 96px); align-items: start; }
+.club__info .lead { margin-top: 24px; }
+.club__steps { margin-top: clamp(36px, 4vw, 56px); border-top: 1px solid var(--rule-dark); }
+.club__steps li { display: grid; grid-template-columns: 56px minmax(0, 1fr); gap: 8px; padding: 22px 0; border-bottom: 1px solid var(--rule-dark); }
+.club__num { color: var(--cyan); font-size: .8125rem; font-weight: 700; letter-spacing: .12em; padding-top: 3px; }
+.club__steps h3 { margin-bottom: 6px; }
+.club__steps p { color: var(--silver); font-size: .9375rem; }
+.club__form { background: var(--deep); }
+.club__form-title { grid-column: 1 / -1; margin: 0 0 4px; font-size: 1.375rem; font-weight: 800; letter-spacing: -.01em; }
+.field--set { margin: 0; padding: 0; border: 0; display: grid; gap: 10px; }
+.field--set legend { margin-bottom: 10px; padding: 0; font-size: .8125rem; font-weight: 600; }
+.field .check { display: flex; align-items: center; gap: 12px; margin: 0; color: var(--silver); font-size: .9375rem; font-weight: 500; cursor: pointer; }
+.check input { flex: none; width: 22px; height: 22px; margin: 0; accent-color: var(--cyan); }
+.club__form input[type="text"], .club__form input[type="email"], .club__form input[type="tel"], .club__form select, .club__form textarea { background: var(--navy); }
+.club__legal { max-width: 96ch; margin: clamp(36px, 4vw, 56px) 0 0; padding-top: 20px; border-top: 1px solid var(--rule-dark); color: var(--silver); font-size: .75rem; line-height: 1.6; opacity: .85; }
+@media (max-width: 960px) {
+	.club__in { grid-template-columns: 1fr; }
 }
 
 /* ---------- Aparición suave (solo con JavaScript y sin preferencia de movimiento reducido) ---------- */

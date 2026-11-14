@@ -360,6 +360,89 @@ $nexxus_status_labels = array(
 	</div>
 </section>
 
+<?php if ( get_theme_mod( 'nexxus_club_show', true ) ) : ?>
+<section class="section section--dark club" id="club-deal" aria-labelledby="club-t">
+	<div class="wrap">
+		<div class="club__in">
+			<div class="club__info">
+				<p class="eyebrow">Club Deal Inmobiliario</p>
+				<h2 id="club-t"><?php echo esc_html( nexxus_opt( 'club_title' ) ); ?></h2>
+				<p class="lead"><?php echo esc_html( nexxus_opt( 'club_text' ) ); ?></p>
+
+				<ol class="club__steps">
+					<?php foreach ( nexxus_club_steps() as $nexxus_i => $nexxus_cs ) : ?>
+						<li class="reveal">
+							<span class="club__num" aria-hidden="true"><?php echo esc_html( sprintf( '%02d', $nexxus_i + 1 ) ); ?></span>
+							<div>
+								<h3><?php echo esc_html( $nexxus_cs[0] ); ?></h3>
+								<p><?php echo esc_html( $nexxus_cs[1] ); ?></p>
+							</div>
+						</li>
+					<?php endforeach; ?>
+				</ol>
+			</div>
+
+			<form class="contact__form club__form" method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
+				<input type="hidden" name="action" value="nexxus_club">
+				<p class="club__form-title">Solicitar información</p>
+				<?php nexxus_form_notice( 'club' ); ?>
+
+				<div class="field">
+					<label for="cd-nombre">Nombre y apellidos <span aria-hidden="true">*</span></label>
+					<input id="cd-nombre" name="nombre" type="text" autocomplete="name" required>
+				</div>
+				<div class="field">
+					<label for="cd-empresa">Empresa u organización</label>
+					<input id="cd-empresa" name="empresa" type="text" autocomplete="organization">
+				</div>
+				<div class="field field--half">
+					<label for="cd-email">Correo electrónico <span aria-hidden="true">*</span></label>
+					<input id="cd-email" name="email" type="email" autocomplete="email" required>
+				</div>
+				<div class="field field--half">
+					<label for="cd-telefono">Teléfono</label>
+					<input id="cd-telefono" name="telefono" type="tel" autocomplete="tel">
+				</div>
+				<div class="field">
+					<label for="cd-perfil">Perfil</label>
+					<select id="cd-perfil" name="perfil">
+						<?php foreach ( nexxus_club_profiles() as $nexxus_k => $nexxus_v ) : ?>
+							<option value="<?php echo esc_attr( $nexxus_k ); ?>"><?php echo esc_html( $nexxus_v ); ?></option>
+						<?php endforeach; ?>
+					</select>
+				</div>
+				<fieldset class="field field--set">
+					<legend>Operaciones que le interesan</legend>
+					<?php foreach ( nexxus_club_interests() as $nexxus_k => $nexxus_v ) : ?>
+						<label class="check"><input type="checkbox" name="interes[]" value="<?php echo esc_attr( $nexxus_k ); ?>"> <?php echo esc_html( $nexxus_v ); ?></label>
+					<?php endforeach; ?>
+				</fieldset>
+				<div class="field">
+					<label for="cd-mensaje">Comentarios</label>
+					<textarea id="cd-mensaje" name="mensaje" rows="3"></textarea>
+				</div>
+				<div class="field field--trap" aria-hidden="true">
+					<label for="cd-web">No rellene este campo</label>
+					<input id="cd-web" name="web" type="text" tabindex="-1" autocomplete="off">
+				</div>
+				<div class="field field--check">
+					<input id="cd-privacidad" name="privacidad" type="checkbox" value="1" required>
+					<label for="cd-privacidad">
+						Acepto que NEXXUS Advisor trate mis datos para atender esta solicitud.
+						<?php if ( nexxus_privacy_url() ) : ?>
+							<a href="<?php echo esc_url( nexxus_privacy_url() ); ?>">Política de privacidad</a>.
+						<?php endif; ?>
+					</label>
+				</div>
+				<button class="btn" type="submit">Solicitar información</button>
+			</form>
+		</div>
+
+		<p class="club__legal"><?php echo esc_html( nexxus_opt( 'club_legal' ) ); ?></p>
+	</div>
+</section>
+<?php endif; ?>
+
 <section class="section" id="como-trabajamos" aria-labelledby="reglas-t">
 	<div class="wrap">
 		<div class="split">

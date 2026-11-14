@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'NEXXUS_VERSION', '1.6.1' );
+define( 'NEXXUS_VERSION', '1.7.0' );
 
 require get_template_directory() . '/inc/content.php';
 require get_template_directory() . '/inc/illustrations.php';
@@ -121,6 +121,9 @@ function nexxus_defaults() {
 		'form_recipient'   => '',
 		'hero_title'       => 'Un solo interlocutor desde el suelo hasta la entrega.',
 		'hero_text'        => 'Unimos activo, financiación, sistema constructivo, montaje y comercialización bajo una misma dirección.',
+		'club_title'       => 'Coinversión en operaciones seleccionadas.',
+		'club_text'        => 'Un club deal es una fórmula de inversión en la que un grupo reducido de inversores une su capital para participar en una operación inmobiliaria concreta. Cada inversor conoce el activo, el plan y los plazos antes de decidir, y participa solo en las operaciones que le interesan.',
+		'club_legal'       => 'La información de esta sección es de carácter general y no constituye una oferta pública de inversión, una recomendación ni asesoramiento financiero. El acceso a cada operación es privado, se realiza a solicitud del interesado y está sujeto a verificación previa. Toda inversión inmobiliaria conlleva riesgo, incluida la pérdida del capital.',
 		'meta_description' => 'NEXXUS Advisor coordina a cinco empresas especialistas en activos terciarios e industriales y en construcción industrializada. Un único responsable desde el suelo hasta la entrega.',
 	);
 }
@@ -224,6 +227,55 @@ function nexxus_customize( $wp_customize ) {
 			)
 		)
 	);
+
+	// Club Deal Inmobiliario.
+	$wp_customize->add_section(
+		'nexxus_club',
+		array(
+			'title'       => 'NEXXUS · Club Deal',
+			'description' => 'Sección de coinversión. Revise los textos con su asesor legal antes de publicarlos.',
+			'priority'    => 34,
+		)
+	);
+	$wp_customize->add_setting(
+		'nexxus_club_show',
+		array(
+			'default'           => true,
+			'sanitize_callback' => 'rest_sanitize_boolean',
+		)
+	);
+	$wp_customize->add_control(
+		'nexxus_club_show',
+		array(
+			'section' => 'nexxus_club',
+			'label'   => 'Mostrar la sección Club Deal',
+			'type'    => 'checkbox',
+		)
+	);
+	$nexxus_club_fields = array(
+		'club_title'     => array( 'Titular', 'text', 'sanitize_text_field' ),
+		'club_text'      => array( 'Explicación breve', 'textarea', 'sanitize_textarea_field' ),
+		'club_legal'     => array( 'Aviso legal de la sección', 'textarea', 'sanitize_textarea_field' ),
+		'club_recipient' => array( 'Correo que recibe las solicitudes (si se deja vacío, el del formulario de contacto)', 'email', 'sanitize_email' ),
+	);
+	$nexxus_club_defaults = nexxus_defaults();
+	foreach ( $nexxus_club_fields as $key => $f ) {
+		$wp_customize->add_setting(
+			'nexxus_' . $key,
+			array(
+				'default'           => isset( $nexxus_club_defaults[ $key ] ) ? $nexxus_club_defaults[ $key ] : '',
+				'sanitize_callback' => $f[2],
+			)
+		);
+		$wp_customize->add_control(
+			'nexxus_' . $key,
+			array(
+				'section' => 'nexxus_club',
+				'label'   => $f[0],
+				'type'    => $f[1],
+			)
+		);
+	}
 
 	// Webs de los especialistas y dossieres descargables por línea de negocio.
 	$wp_customize->add_section(

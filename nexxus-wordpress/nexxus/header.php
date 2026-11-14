@@ -11,8 +11,11 @@ $nexxus_nav   = array(
 	'modelo'        => 'El modelo',
 	'lineas'        => 'Líneas de negocio',
 	'ecosistema'    => 'Ecosistema',
-	'ventajas'      => 'Por qué NEXXUS Advisor',
+	'ventajas'      => 'Ventajas',
 );
+if ( get_theme_mod( 'nexxus_club_show', true ) ) {
+	$nexxus_nav['club-deal'] = 'Club Deal';
+}
 if ( nexxus_get_projects( 1 ) ) {
 	$nexxus_nav = array_slice( $nexxus_nav, 0, 3, true ) + array( 'proyectos' => 'Proyectos' ) + array_slice( $nexxus_nav, 3, null, true );
 }

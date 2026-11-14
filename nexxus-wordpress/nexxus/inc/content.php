@@ -326,3 +326,15 @@ function nexxus_line_partners() {
 		'C' => array( 'ds-consultores' ),
 	);
 }
+
+/**
+ * Cómo funciona el Club Deal.
+ */
+function nexxus_club_steps() {
+	return array(
+		array( 'Selección', 'Identificamos y analizamos cada operación: activo, precio, viabilidad urbanística y plan de salida.' ),
+		array( 'Presentación', 'La operación se presenta de forma privada a un grupo reducido de inversores, con toda la documentación.' ),
+		array( 'Coinversión', 'Cada inversor decide operación a operación si participa. No hay compromiso previo ni aportaciones a ciegas.' ),
+		array( 'Gestión y salida', 'El mismo equipo coordina el desarrollo, informa del avance y gestiona la desinversión.' ),
+	);
+}
