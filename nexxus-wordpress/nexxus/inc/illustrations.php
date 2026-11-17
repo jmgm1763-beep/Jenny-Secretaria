@@ -109,6 +109,12 @@ function nexxus_art_line( $type ) {
 		$o .= '<g class="art-accent"><path d="M104 12L176 40M176 12L104 40"/></g>';
 		$o .= '<path d="M40 110V70h44v40M196 110V56h44v54" opacity=".6"/>';
 		$o .= '<path d="M10 110H270" stroke-width="3"/>';
+	} elseif ( 'logistica' === $type ) {
+		// Nave logística de cubierta plana con muelles de carga.
+		$o .= '<path d="M20 110V40H260V110"/>';
+		$o .= '<g stroke-width="1" opacity=".45"><path d="M20 52H260M68 40V110M116 40V110M164 40V110M212 40V110"/></g>';
+		$o .= '<g class="art-accent"><rect x="78" y="78" width="28" height="32"/><rect x="126" y="78" width="28" height="32"/><rect x="174" y="78" width="28" height="32"/></g>';
+		$o .= '<path d="M10 110H270" stroke-width="3"/>';
 	} else {
 		// Conjunto de vivienda.
 		$o .= '<path d="M34 110V62L70 38L106 62V110M106 62L140 38L174 62V110M174 62L210 38L246 62V110"/>';

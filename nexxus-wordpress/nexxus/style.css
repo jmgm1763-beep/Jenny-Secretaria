@@ -3,7 +3,7 @@ Theme Name: NEXXUS
 Theme URI: https://github.com/jmgm1763-beep/jenny-secretaria
 Author: Josep M. González · Consultor Inmobiliario
 Description: Web corporativa de NEXXUS · Real Estate y construcción industrializada. Página única construida a partir del Dossier Corporativo (Ed. 01) y del Manual de Identidad v1.0: azul noche, acentos en azul tecnológico, tipografía Montserrat y esquemas técnicos vectoriales. Incluye formulario de contacto propio, sin plugins ni llamadas a servicios externos.
-Version: 1.7.0
+Version: 1.8.0
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 7.4
@@ -1189,6 +1189,13 @@ h2 { font-size: clamp(2rem, 4.2vw, 3.375rem); letter-spacing: -.025em; line-heig
 @media (max-width: 960px) {
 	.club__in { grid-template-columns: 1fr; }
 }
+
+/* ---------- v1.8 · Línea D y cuatro líneas en rejilla de 2 × 2 ---------- */
+.lines { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.line__lead { margin: -6px 0 22px; color: var(--silver); font-size: .9375rem; line-height: 1.6; }
+.checks li.checks__def strong { display: block; margin-bottom: 2px; color: var(--white); font-size: .6875rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+.line__cta { margin: 24px 0 0; }
+.line__cta + .line__actions { padding-top: 20px; margin-top: 0; }
 
 /* ---------- Aparición suave (solo con JavaScript y sin preferencia de movimiento reducido) ---------- */
 @media (prefers-reduced-motion: no-preference) {

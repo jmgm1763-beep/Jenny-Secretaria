@@ -136,14 +136,15 @@ function nexxus_line_terms() {
 		'linea-a' => 'Línea A · Terciario e industrial',
 		'linea-b' => 'Línea B · Residencial en altura',
 		'linea-c' => 'Línea C · Vivienda pública',
+		'linea-d' => 'Línea D · Naves llave en mano',
 	);
 }
 
 /**
- * Crea una sola vez las tres líneas de negocio.
+ * Crea las líneas de negocio que falten (también las añadidas en versiones posteriores).
  */
 function nexxus_seed_line_terms() {
-	if ( get_option( 'nexxus_linea_terms_seeded' ) ) {
+	if ( (int) get_option( 'nexxus_linea_terms_seeded' ) >= count( nexxus_line_terms() ) ) {
 		return;
 	}
 	foreach ( nexxus_line_terms() as $slug => $name ) {
@@ -151,7 +152,7 @@ function nexxus_seed_line_terms() {
 			wp_insert_term( $name, 'nexxus_linea', array( 'slug' => $slug ) );
 		}
 	}
-	update_option( 'nexxus_linea_terms_seeded', 1 );
+	update_option( 'nexxus_linea_terms_seeded', count( nexxus_line_terms() ) );
 }
 add_action( 'admin_init', 'nexxus_seed_line_terms' );
 
@@ -303,7 +304,7 @@ function nexxus_project_status( $post_id ) {
  * Línea de negocio de un proyecto: 'a', 'b', 'c' o cadena vacía.
  */
 function nexxus_project_line( $post_id ) {
-	foreach ( array( 'a', 'b', 'c' ) as $letter ) {
+	foreach ( array( 'a', 'b', 'c', 'd' ) as $letter ) {
 		if ( has_term( 'linea-' . $letter, 'nexxus_linea', $post_id ) ) {
 			return $letter;
 		}

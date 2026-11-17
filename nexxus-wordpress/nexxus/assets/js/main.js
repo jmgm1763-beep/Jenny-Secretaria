@@ -268,6 +268,14 @@
 		}
 	});
 
+	// Botones que llevan al formulario de contacto con un tipo de proyecto ya elegido.
+	document.querySelectorAll('a[data-tipo]').forEach(function (link) {
+		link.addEventListener('click', function () {
+			var select = document.getElementById('cf-tipo');
+			if (select) { select.value = link.getAttribute('data-tipo'); }
+		});
+	});
+
 	var items = document.querySelectorAll('.reveal');
 	var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 

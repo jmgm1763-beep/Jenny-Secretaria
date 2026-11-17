@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'NEXXUS_VERSION', '1.7.0' );
+define( 'NEXXUS_VERSION', '1.8.0' );
 
 require get_template_directory() . '/inc/content.php';
 require get_template_directory() . '/inc/illustrations.php';
@@ -100,10 +100,16 @@ function nexxus_has_seo_plugin() {
  * Título de la portada.
  */
 function nexxus_document_title( $parts ) {
-	if ( is_front_page() && ! nexxus_has_seo_plugin() ) {
+	if ( nexxus_has_seo_plugin() ) {
+		return $parts;
+	}
+	if ( is_front_page() ) {
 		$parts['title']   = 'NEXXUS Advisor';
 		$parts['tagline'] = 'Real Estate y construcción industrializada';
 		unset( $parts['site'] );
+	} elseif ( isset( $parts['site'] ) ) {
+		// En el resto de páginas, la marca y no el título guardado en Ajustes > Generales.
+		$parts['site'] = 'NEXXUS Advisor';
 	}
 	return $parts;
 }
@@ -323,7 +329,7 @@ function nexxus_customize( $wp_customize ) {
 			)
 		);
 	}
-	foreach ( array( 'a', 'b', 'c' ) as $letter ) {
+	foreach ( array( 'a', 'b', 'c', 'd' ) as $letter ) {
 		$wp_customize->add_setting(
 			'nexxus_dossier_' . $letter,
 			array(
@@ -458,6 +464,7 @@ function nexxus_image_slots() {
 		'img_linea_a' => 'Línea A · Activos terciarios e industriales',
 		'img_linea_b' => 'Línea B · Edificación residencial en altura',
 		'img_linea_c' => 'Línea C · Vivienda pública y municipios',
+		'img_linea_d' => 'Línea D · Naves industriales llave en mano',
 		'img_contact' => 'Contacto (fondo de la sección)',
 	);
 }

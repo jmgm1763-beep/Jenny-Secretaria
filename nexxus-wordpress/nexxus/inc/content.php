@@ -75,6 +75,19 @@ function nexxus_lines() {
 				'Red comercial con presencia nacional',
 			),
 		),
+		array(
+			'letter' => 'D',
+			'tag'    => 'Industrial · Logístico · Agroindustrial',
+			'title'  => 'Naves industriales llave en mano',
+			'art'    => 'logistica',
+			'lead'   => 'Diseñamos y construimos naves industriales, logísticas y agroindustriales con sistema industrializado, en plazos hasta un 50 % menores que la obra tradicional. Coordinamos el suelo, el proyecto y la construcción, para que trate con un solo interlocutor desde la elección de la parcela hasta la entrega de llaves.',
+			'items'  => array(
+				array( 'Para quién', 'Empresas que necesitan crecer, ampliar o trasladar su actividad; operadores logísticos; promotores de suelo industrial.' ),
+				array( 'Partner especialista', 'CUALIMETAL, más de 2.783 proyectos industriales ejecutados.' ),
+				array( 'Cómo empezamos', 'Nos cuenta su necesidad (superficie, altura, uso y plazo) y le preparamos una propuesta a medida.' ),
+			),
+			'cta'    => array( 'Solicitar propuesta', 'nave' ),
+		),
 	);
 }
 
@@ -166,7 +179,7 @@ function nexxus_partners() {
 			'name'     => 'CUALIMETAL',
 			'kind'     => 'Sistemas industriales',
 			'meta'     => 'Zaragoza · Desde 1993',
-			'lines'    => 'Línea A',
+			'lines'    => 'Líneas A y D',
 			'intro'    => 'Fabricante zaragozano de edificios industriales de estructura metálica. Diseña, fabrica, suministra y monta naves completas con sistemas propios registrados y patentados, y ha llevado sus estructuras a los cinco continentes.',
 			'role'     => 'Construye el producto de la línea terciaria e industrial: naves logísticas y de producción, cubiertas para medianas, pabellones y estructuras fotovoltaicas. Plazos cortos y precio cerrado desde fábrica.',
 			'figures'  => array(
@@ -249,6 +262,7 @@ function nexxus_rules() {
 function nexxus_project_types() {
 	return array(
 		'terciario'   => 'Activo terciario o industrial',
+		'nave'        => 'Nave industrial nueva o ampliación',
 		'residencial' => 'Edificación residencial en altura',
 		'publica'     => 'Vivienda pública o proyecto municipal',
 		'suelo'       => 'Suelo por desarrollar',
@@ -324,6 +338,7 @@ function nexxus_line_partners() {
 		'A' => array( 'cualimetal', 'trading-habitat' ),
 		'B' => array( 'remagin', 'dhhouse' ),
 		'C' => array( 'ds-consultores' ),
+		'D' => array( 'cualimetal' ),
 	);
 }
 

@@ -123,7 +123,7 @@ $nexxus_poster = absint( get_theme_mod( 'nexxus_img_hero', 0 ) ) ? wp_get_attach
 	<div class="wrap">
 		<div class="section__head reveal">
 			<p class="eyebrow">Líneas de negocio</p>
-			<h2 id="lineas-t">Tres mercados, una marca.</h2>
+			<h2 id="lineas-t">Cuatro mercados, una marca.</h2>
 		</div>
 
 		<div class="lines">
@@ -137,11 +137,21 @@ $nexxus_poster = absint( get_theme_mod( 'nexxus_img_hero', 0 ) ) ? wp_get_attach
 					<?php endif; ?>
 					<p class="line__tag"><?php echo esc_html( $nexxus_l['tag'] ); ?></p>
 					<h3><span class="line__letter">Línea <?php echo esc_html( $nexxus_l['letter'] ); ?></span><?php echo esc_html( $nexxus_l['title'] ); ?></h3>
+					<?php if ( ! empty( $nexxus_l['lead'] ) ) : ?>
+						<p class="line__lead"><?php echo esc_html( $nexxus_l['lead'] ); ?></p>
+					<?php endif; ?>
 					<ul class="checks">
 						<?php foreach ( $nexxus_l['items'] as $nexxus_item ) : ?>
-							<li><?php echo esc_html( $nexxus_item ); ?></li>
+							<?php if ( is_array( $nexxus_item ) ) : ?>
+								<li class="checks__def"><strong><?php echo esc_html( $nexxus_item[0] ); ?></strong> <?php echo esc_html( $nexxus_item[1] ); ?></li>
+							<?php else : ?>
+								<li><?php echo esc_html( $nexxus_item ); ?></li>
+							<?php endif; ?>
 						<?php endforeach; ?>
 					</ul>
+					<?php if ( ! empty( $nexxus_l['cta'] ) ) : ?>
+						<p class="line__cta"><a class="btn btn--sm" href="#contacto" data-tipo="<?php echo esc_attr( $nexxus_l['cta'][1] ); ?>"><?php echo esc_html( $nexxus_l['cta'][0] ); ?></a></p>
+					<?php endif; ?>
 					<?php
 					$nexxus_dossier = nexxus_dossier_url( $nexxus_l['letter'] );
 					$nexxus_lp      = nexxus_line_partners();
