@@ -42,13 +42,12 @@ function nexxus_lines() {
 		array(
 			'letter' => 'A',
 			'tag'    => 'Línea prioritaria',
-			'title'  => 'Activos terciarios e industriales',
+			'title'  => 'Consultoría de activos terciarios e industriales',
 			'art'    => 'nave',
 			'items'  => array(
 				'Parques de medianas y retail',
 				'Naves industriales y logísticas',
 				'Suelo industrial, terciario y logístico',
-				'Promoción llave en mano con sistema CUALIMETAL',
 			),
 		),
 		array(
@@ -179,7 +178,7 @@ function nexxus_partners() {
 			'name'     => 'CUALIMETAL',
 			'kind'     => 'Sistemas industriales',
 			'meta'     => 'Zaragoza · Desde 1993',
-			'lines'    => 'Líneas A y D',
+			'lines'    => 'Línea D',
 			'intro'    => 'Fabricante zaragozano de edificios industriales de estructura metálica. Diseña, fabrica, suministra y monta naves completas con sistemas propios registrados y patentados, y ha llevado sus estructuras a los cinco continentes.',
 			'role'     => 'Construye el producto de la línea terciaria e industrial: naves logísticas y de producción, cubiertas para medianas, pabellones y estructuras fotovoltaicas. Plazos cortos y precio cerrado desde fábrica.',
 			'figures'  => array(
@@ -335,7 +334,7 @@ function nexxus_brand_line() {
  */
 function nexxus_line_partners() {
 	return array(
-		'A' => array( 'cualimetal', 'trading-habitat' ),
+		'A' => array( 'trading-habitat' ),
 		'B' => array( 'remagin', 'dhhouse' ),
 		'C' => array( 'ds-consultores' ),
 		'D' => array( 'cualimetal' ),

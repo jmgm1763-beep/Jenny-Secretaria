@@ -19,7 +19,7 @@ $nexxus_poster = absint( get_theme_mod( 'nexxus_img_hero', 0 ) ) ? wp_get_attach
 ?>
 <section class="hero<?php echo ( $nexxus_slides || $nexxus_video ) ? ' hero--photo' : ''; ?>" aria-labelledby="hero-t">
 	<?php if ( $nexxus_slides || $nexxus_video ) : ?>
-		<div class="hero__bg" aria-hidden="true">
+		<div class="hero__bg" aria-hidden="true" data-interval="<?php echo esc_attr( nexxus_hero_interval_ms() ); ?>">
 			<?php foreach ( $nexxus_slides as $nexxus_i => $nexxus_slide ) : ?>
 				<figure class="hero__slide<?php echo 0 === $nexxus_i ? ' is-active' : ''; ?>"><?php echo $nexxus_slide; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></figure>
 			<?php endforeach; ?>
@@ -119,7 +119,7 @@ $nexxus_poster = absint( get_theme_mod( 'nexxus_img_hero', 0 ) ) ? wp_get_attach
 	</div>
 </section>
 
-<section class="section section--dark" id="lineas" aria-labelledby="lineas-t">
+<section class="section section--dark section--soft" id="lineas" aria-labelledby="lineas-t">
 	<div class="wrap">
 		<div class="section__head reveal">
 			<p class="eyebrow">Líneas de negocio</p>

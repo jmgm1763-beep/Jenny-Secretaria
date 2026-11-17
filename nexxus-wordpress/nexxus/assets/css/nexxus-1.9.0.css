@@ -3,7 +3,7 @@ Theme Name: NEXXUS
 Theme URI: https://github.com/jmgm1763-beep/jenny-secretaria
 Author: Josep M. González · Consultor Inmobiliario
 Description: Web corporativa de NEXXUS · Real Estate y construcción industrializada. Página única construida a partir del Dossier Corporativo (Ed. 01) y del Manual de Identidad v1.0: azul noche, acentos en azul tecnológico, tipografía Montserrat y esquemas técnicos vectoriales. Incluye formulario de contacto propio, sin plugins ni llamadas a servicios externos.
-Version: 1.8.0
+Version: 1.9.0
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 7.4
@@ -28,6 +28,8 @@ Text Domain: nexxus
 	--cyan: #00AEEF;   /* Azul tecnológico · acentos y llamadas */
 	--silver: #C0C6D4; /* Plata · símbolo y detalles */
 	--white: #FFFFFF;
+	--navy-soft: #0F3358; /* Azul NEXXUS aclarado para fondos amplios */
+	--navy-soft-2: #0B2A4A;
 	--tint: #F2F4F8;   /* Plata muy clara para fondos alternos */
 	--ink-soft: #46566D;
 	--rule: #D9DEE7;
@@ -1196,6 +1198,27 @@ h2 { font-size: clamp(2rem, 4.2vw, 3.375rem); letter-spacing: -.025em; line-heig
 .checks li.checks__def strong { display: block; margin-bottom: 2px; color: var(--white); font-size: .6875rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
 .line__cta { margin: 24px 0 0; }
 .line__cta + .line__actions { padding-top: 20px; margin-top: 0; }
+
+/* ---------- v1.9 · Azul menos intenso en portada y líneas; seis imágenes de portada ---------- */
+.hero { background-color: var(--navy-soft); }
+.hero--photo::before {
+	background:
+		linear-gradient(90deg, rgba(15, 51, 88, .86) 0%, rgba(15, 51, 88, .62) 42%, rgba(15, 51, 88, .12) 100%),
+		linear-gradient(0deg, rgba(11, 42, 74, .72) 0%, rgba(11, 42, 74, 0) 38%);
+}
+/* Con el velo más ligero, el texto de portada lleva una sombra suave para seguir leyéndose sobre cualquier foto. */
+.hero--photo .eyebrow { color: var(--white); }
+.hero--photo h1, .hero--photo .hero__lead, .hero--photo .eyebrow { text-shadow: 0 2px 20px rgba(6, 29, 56, .45); }
+.section--soft { background: var(--navy-soft); }
+.section--soft .line { background: var(--navy-soft-2); border-color: rgba(192, 198, 212, .18); }
+.section--soft .line--main { border-color: var(--cyan); }
+.hero__slide { transition-duration: 1.2s; }
+@media (prefers-reduced-motion: no-preference) {
+	.hero__slide.is-active img { animation-duration: 8s; }
+}
+@media (max-width: 720px) {
+	.hero--photo::before { background: linear-gradient(0deg, rgba(11, 42, 74, .94) 0%, rgba(15, 51, 88, .70) 55%, rgba(15, 51, 88, .42) 100%); }
+}
 
 /* ---------- Aparición suave (solo con JavaScript y sin preferencia de movimiento reducido) ---------- */
 @media (prefers-reduced-motion: no-preference) {

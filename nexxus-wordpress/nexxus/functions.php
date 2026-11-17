@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'NEXXUS_VERSION', '1.8.0' );
+define( 'NEXXUS_VERSION', '1.9.0' );
 
 require get_template_directory() . '/inc/content.php';
 require get_template_directory() . '/inc/illustrations.php';
@@ -211,6 +211,30 @@ function nexxus_customize( $wp_customize ) {
 			)
 		);
 	}
+
+	// Segundos que permanece cada imagen de portada.
+	$wp_customize->add_setting(
+		'nexxus_hero_interval',
+		array(
+			'default'           => 5,
+			'sanitize_callback' => 'nexxus_sanitize_interval',
+		)
+	);
+	$wp_customize->add_control(
+		'nexxus_hero_interval',
+		array(
+			'section'     => 'nexxus_imagenes',
+			'label'       => 'Portada · segundos por imagen',
+			'description' => 'Entre 3 y 15. Recomendado: 5.',
+			'type'        => 'number',
+			'input_attrs' => array(
+				'min'  => 3,
+				'max'  => 15,
+				'step' => 1,
+			),
+			'priority'    => 4,
+		)
+	);
 
 	// Vídeo de fondo de la portada (opcional).
 	$wp_customize->add_setting(
@@ -458,8 +482,11 @@ function nexxus_anchor( $id ) {
 function nexxus_image_slots() {
 	return array(
 		'img_hero'    => 'Portada · fondo a pantalla completa (imagen 1)',
-		'img_hero_2'  => 'Portada · imagen 2 (opcional, se alterna con la 1)',
+		'img_hero_2'  => 'Portada · imagen 2 (opcional; las imágenes se alternan)',
 		'img_hero_3'  => 'Portada · imagen 3 (opcional)',
+		'img_hero_4'  => 'Portada · imagen 4 (opcional)',
+		'img_hero_5'  => 'Portada · imagen 5 (opcional)',
+		'img_hero_6'  => 'Portada · imagen 6 (opcional)',
 		'img_quienes' => 'Quiénes somos (franja panorámica)',
 		'img_linea_a' => 'Línea A · Activos terciarios e industriales',
 		'img_linea_b' => 'Línea B · Edificación residencial en altura',
@@ -505,7 +532,7 @@ function nexxus_dossier_url( $letter ) {
  */
 function nexxus_hero_slides() {
 	$slides = array();
-	foreach ( array( 'img_hero', 'img_hero_2', 'img_hero_3' ) as $key ) {
+	foreach ( array( 'img_hero', 'img_hero_2', 'img_hero_3', 'img_hero_4', 'img_hero_5', 'img_hero_6' ) as $key ) {
 		$id = absint( get_theme_mod( 'nexxus_' . $key, 0 ) );
 		if ( ! $id ) {
 			continue;
@@ -584,4 +611,18 @@ function nexxus_hero_video() {
 		'url'  => $url,
 		'type' => $type,
 	);
+}
+
+/**
+ * Segundos por imagen de portada, entre 3 y 15.
+ */
+function nexxus_sanitize_interval( $value ) {
+	return max( 3, min( 15, absint( $value ) ) );
+}
+
+/**
+ * Milisegundos entre imágenes de portada.
+ */
+function nexxus_hero_interval_ms() {
+	return nexxus_sanitize_interval( get_theme_mod( 'nexxus_hero_interval', 5 ) ) * 1000;
 }

@@ -109,7 +109,7 @@
 			slides[current].classList.remove('is-active');
 			current = (current + 1) % slides.length;
 			slides[current].classList.add('is-active');
-		}, 7000);
+		}, parseInt(document.querySelector('.hero__bg').getAttribute('data-interval'), 10) || 5000);
 	}
 
 	// Barra de avance de lectura bajo la cabecera.

@@ -133,7 +133,7 @@ add_action( 'init', 'nexxus_maybe_flush_rewrites', 99 );
  */
 function nexxus_line_terms() {
 	return array(
-		'linea-a' => 'Línea A · Terciario e industrial',
+		'linea-a' => 'Línea A · Consultoría terciaria e industrial',
 		'linea-b' => 'Línea B · Residencial en altura',
 		'linea-c' => 'Línea C · Vivienda pública',
 		'linea-d' => 'Línea D · Naves llave en mano',
