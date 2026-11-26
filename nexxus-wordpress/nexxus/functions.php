@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'NEXXUS_VERSION', '1.9.0' );
+define( 'NEXXUS_VERSION', '1.9.1' );
 
 require get_template_directory() . '/inc/content.php';
 require get_template_directory() . '/inc/illustrations.php';
@@ -93,7 +93,16 @@ add_action( 'wp_head', 'nexxus_js_flag', 0 );
  * ¿Hay un plugin de SEO activo?
  */
 function nexxus_has_seo_plugin() {
-	return defined( 'WPSEO_VERSION' ) || defined( 'RANK_MATH_VERSION' ) || defined( 'AIOSEO_VERSION' ) || defined( 'SEOPRESS_VERSION' );
+	if ( defined( 'WPSEO_VERSION' ) || defined( 'RANK_MATH_VERSION' ) || defined( 'AIOSEO_VERSION' ) || defined( 'SEOPRESS_VERSION' ) ) {
+		return true;
+	}
+	// Cualquier otro plugin de SEO activo (por ejemplo BeyondSEO): se le deja el título y las etiquetas para buscadores.
+	foreach ( (array) get_option( 'active_plugins', array() ) as $plugin ) {
+		if ( false !== stripos( (string) $plugin, 'seo' ) ) {
+			return true;
+		}
+	}
+	return false;
 }
 
 /**
